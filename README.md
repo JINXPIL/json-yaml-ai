@@ -66,7 +66,7 @@
 ### 📸 Интерфейс
 
 <p align="center">
-  <i>(Здесь будут ваши скриншоты. Загрузите пару красивых скринов приложения в папку `media` вашего репозитория и обновите эти ссылки)</i>
+  <i>(............................)</i>
   <br><br>
   <img alt="Editor View" src="https://via.placeholder.com/800x400.png?text=Скриншот+Редактора+Кода" width="48%">
   <img alt="AI Chat View" src="https://via.placeholder.com/800x400.png?text=Скриншот+ИИ+Чата" width="48%">
