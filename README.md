@@ -8,17 +8,17 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/jinxpil/json-yaml-master/releases">
-    <img src="https://img.shields.io/github/v/release/jinxpil/json-yaml-master?style=for-the-badge&logo=github&color=181717" alt="Release">
+  <a href="https://github.com/JINXPIL/json-yaml-ai/releases">
+    <img src="https://img.shields.io/github/v/release/jinxpil/json-yaml-ai?style=for-the-badge&logo=github&color=181717" alt="Release">
   </a>
-  <a href="https://github.com/jinxpil/json-yaml-master/releases/latest">
-    <img src="https://img.shields.io/github/downloads/jinxpil/json-yaml-master/total?style=for-the-badge&color=brightgreen" alt="Downloads">
+  <a href="https://github.com/JINXPIL/json-yaml-ai/releases/latest">
+    <img src="https://img.shields.io/github/downloads/jinxpil/json-yaml-ai/total?style=for-the-badge&color=brightgreen" alt="Downloads">
   </a>
   <a href="https://opensource.org/licenses/MIT">
     <img src="https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge&logo=opensourceinitiative&logoColor=white" alt="License">
   </a>
-  <a href="https://github.com/jinxpil/json-yaml-master/stargazers">
-    <img src="https://img.shields.io/github/stars/jinxpil/json-yaml-master?style=for-the-badge&color=yellow" alt="Stars">
+  <a href="https://github.com/JINXPIL/json-yaml-ai/stargazers">
+    <img src="https://img.shields.io/github/stars/jinxpil/json-yaml-ai?style=for-the-badge&color=yellow" alt="Stars">
   </a>
 </p>
 
@@ -38,7 +38,7 @@
 </p>
 
 <p align="center">
-  <a href="https://jinxpil.github.io/json-yaml-master/">
+  <a href="https://jinxpil.github.io/json-yaml-ai/">
     <img src="https://img.shields.io/badge/🚀_ОТКРЫТЬ_WEB--ВЕРСИЮ-0052FF?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Open Web Version">
   </a>
 </p>
@@ -90,9 +90,9 @@
 
 Приложение не требует установки Node.js, серверов или баз данных. 
 
-1. Скачайте `index.html` из последнего [Релиза](https://github.com/jinxpil/json-yaml-master/releases).
+1. Скачайте `index.html` из последнего [Релиза](https://github.com/JINXPIL/json-yaml-ai/releases).
 2. Кликните по файлу дважды, чтобы открыть его в любом браузере (Chrome, Edge, Safari).
-3. **Или** просто пользуйтесь [Web-версией](https://jinxpil.github.io/json-yaml-master/) напрямую из репозитория!
+3. **Или** просто пользуйтесь [Web-версией](https://jinxpil.github.io/json-yaml-ai/) напрямую из репозитория!
 
 ---
 
@@ -100,4 +100,4 @@
 
 **Если JSON/YAML Academy помогла вам разобраться в синтаксисе или ускорила настройку прокси, пожалуйста, поставьте звезду этому репозиторию! Это лучшая мотивация.** :star2:
 
-[![Stargazers over time](https://starchart.cc/jinxpil/json-yaml-master.svg?variant=adaptive)](https://starchart.cc/jinxpil/json-yaml-master)
+[![Stargazers over time](https://starchart.cc/JINXPIL/json-yaml-ai.svg?variant=adaptive)](https://starchart.cc/JINXPIL/json-yaml-ai)
