@@ -9,16 +9,16 @@
 
 <p align="center">
   <a href="https://github.com/JINXPIL/json-yaml-ai/releases">
-    <img src="https://img.shields.io/github/v/release/jinxpil/json-yaml-ai?style=for-the-badge&logo=github&color=181717" alt="Release">
+    <img src="https://img.shields.io/github/v/release/JINXPIL/json-yaml-ai?style=for-the-badge&logo=github&color=181717" alt="Release">
   </a>
   <a href="https://github.com/JINXPIL/json-yaml-ai/releases/latest">
-    <img src="https://img.shields.io/github/downloads/jinxpil/json-yaml-ai/total?style=for-the-badge&color=brightgreen" alt="Downloads">
+    <img src="https://img.shields.io/github/downloads/JINXPIL/json-yaml-ai/total?style=for-the-badge&color=brightgreen" alt="Downloads">
   </a>
   <a href="https://opensource.org/licenses/MIT">
     <img src="https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge&logo=opensourceinitiative&logoColor=white" alt="License">
   </a>
   <a href="https://github.com/JINXPIL/json-yaml-ai/stargazers">
-    <img src="https://img.shields.io/github/stars/jinxpil/json-yaml-ai?style=for-the-badge&color=yellow" alt="Stars">
+    <img src="https://img.shields.io/github/stars/JINXPIL/json-yaml-ai?style=for-the-badge&color=yellow" alt="Stars">
   </a>
 </p>
 
@@ -55,34 +55,11 @@
 
 * 🤖 **Offline AI-Assistant:** Встроенный чат-бот, который умеет проверять ваш код. Просто перетащите `.json` файл в чат или напишите *"исправь код"*, и алгоритм автоматически найдет и починит синтаксические ошибки (висячие запятые, одинарные кавычки, комментарии).
 * 🎓 **Интерактивная Академия:** Встроенный курс из 15 шагов: от базовых типов JSON до сложных конфигураций Proxy-маршрутизации (Outbounds, Rules, Clash API) и финального Экзамена.
-* 🚀 **Конструктор HAPP / Base64:** Мгновенное сжатие (Minify) вашего кода и генерация `happ://routing/...` диплипнков для быстрой имплементации правил маршрутизации в клиенты (v2Ray, Sing-box).
-* 🎨 **Ultimate UI (Resizability):** Абсолютная свобода интерфейса. Каждое окно можно растягивать в любые стороны. Настраиваемые цвета (Custom Themes), экспорт/импорт дизайна и масштабирование шрифта через `rem`.
+* 🚀 **Конструктор HAPP / Base64:** Мгновенное сжатие (Minify) вашего кода и генерация `happ://routing/...` диплинков для быстрой имплементации правил маршрутизации в клиенты (v2Ray, Sing-box).
+* 🎨 **Ultimate UI (Resizability):** Абсолютная свобода интерфейса. Каждое окно можно растягивать в любые стороны. Настраиваемые цвета (Custom Themes), экспорт/импорт дизайна и масштабирование шрифта.
 * 🔗 **Share & Iframe:** Написали крутой конфиг? Нажмите *"Поделиться"*, и приложение сгенерирует URL, внутри которого зашифрован ваш код. Или скопируйте Iframe-код для встраивания редактора на свой сайт!
 * 📝 **System Logger:** Профессиональная вкладка детальных логов (с точностью до миллисекунд) для отладки процессов с возможностью выгрузки в `.txt`.
 * 🌍 **Мультиязычность (i18n):** Мгновенное переключение всего интерфейса на 6 языков (включая RTL-поддержку для арабской вязи).
-
----
-
-### 📸 Интерфейс
-
-<p align="center">
-  <i>(............................)</i>
-  <br><br>
-  <img alt="Editor View" src="https://via.placeholder.com/800x400.png?text=Скриншот+Редактора+Кода" width="48%">
-  <img alt="AI Chat View" src="https://via.placeholder.com/800x400.png?text=Скриншот+ИИ+Чата" width="48%">
-</p>
-
----
-
-### 🛠️ Инструкция по использованию HAPP-генератора
-
-Инструмент идеально подходит для создания кастомных правил обхода блокировок для VPN/Proxy клиентов.
-1. Откройте вкладку **Редактор Кода**.
-2. Выберите урок **12 (Routing Rules)** или вставьте свой конфиг маршрутизации в окно слева.
-3. Проверьте синтаксис кнопкой `⚙️ Проверить JSON`.
-4. Нажмите `🚀 HAPP`.
-5. Приложение удалит все пробелы, переведет конфиг в Base64 (UTF-8 safe) и скопирует в буфер обмена готовую ссылку вида `happ://routing/onadd/eyJ...`.
-6. Вставьте ссылку в ваш клиент.
 
 ---
 
