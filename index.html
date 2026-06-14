@@ -4,12 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="theme-color" content="#1a1a24">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>JSON & YAML Master v26.0 (Academy Edition)</title>
+    <title>JSON & YAML Master v33.0 (Smart Offline AI)</title>
     
     <style>
-        /* БАЗОВЫЕ ПЕРЕМЕННЫЕ */
         :root {
             --bg-color: #1a1a24; --box-bg: #232332; --text-color: #e0e0e0;
             --border-color: #3a3a55; --editor-bg: #151522; --editor-text: #00d2ff;
@@ -17,12 +14,9 @@
             --btn-bg: #2f2f44; --btn-text: #ffffff; --sidebar-header: #ff007f;
             --info-bg: #1c1c28; --chat-user: #2b2b40; --chat-ai: #1a3a40;
             --export-btn: #4b4b75; --happ-btn: #ff0055;
-            
             --lesson-bg: #2a2a3e; --lesson-text: #ffffff; --lesson-border: #00d2ff;
             --exam-bg: #3e2a2a; --exam-text: #ffcccc; --exam-border: #ff4c4c;
-
-            --main-font-size: 15px; 
-            --app-scale: 1; 
+            --main-font-size: 15px; --app-scale: 1; 
         }
 
         body.light-theme {
@@ -38,18 +32,8 @@
 
         * { box-sizing: border-box; }
         html { font-size: var(--main-font-size); } 
-        
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background-color: var(--bg-color); color: var(--text-color); 
-            margin: 0; padding: 20px; 
-            padding: max(20px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
-            display: block; text-align: center; 
-            min-height: 100vh; overflow-y: auto; overflow-x: hidden;
-            font-size: 1rem; transition: background-color 0.3s, color 0.3s;
-        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: max(20px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left)); display: block; text-align: center; min-height: 100vh; overflow-y: auto; overflow-x: hidden; font-size: 1rem; transition: 0.3s; }
 
-        /* РЕЖИМ ВСТРАИВАНИЯ (IFRAME) */
         body.embed-mode { padding: 0 !important; margin: 0 !important; background-color: var(--box-bg) !important; }
         body.embed-mode .sidebar, body.embed-mode .lang-links, body.embed-mode h1, body.embed-mode .subtitle { display: none !important; }
         body.embed-mode .app-layout { height: 100vh; max-width: 100%; border: none; border-radius: 0; margin: 0; padding: 10px;}
@@ -63,55 +47,30 @@
         h2 { font-size: 1.5rem; margin-top: 0;}
         h3 { font-size: 1.15rem; margin: 0 0 10px 0; color: var(--sidebar-header); border-bottom: 1px solid var(--border-color); padding-bottom: 5px; }
         .subtitle { color: #8b8b9f; margin-bottom: 10px; font-size: 0.9rem; }
-        
         .lang-links { margin-bottom: 25px; font-size: 0.9rem; }
         .lang-links a { color: var(--editor-text); text-decoration: none; margin: 0 5px; transition: 0.2s; }
         .lang-links a:hover { color: var(--success-color); }
         .lang-links b { color: var(--sidebar-header); }
 
-        .app-layout { 
-            display: flex; gap: 20px; width: 100%; max-width: 1500px; 
-            margin: 0 auto; height: 75vh; min-height: 600px; zoom: var(--app-scale); 
-            text-align: left; align-items: flex-start;
-        }
+        .app-layout { display: flex; gap: 20px; width: 100%; max-width: 1500px; margin: 0 auto; height: 75vh; min-height: 600px; zoom: var(--app-scale); text-align: left; align-items: flex-start; }
         body[dir="rtl"] .app-layout { text-align: right; }
         
-        .sidebar { 
-            flex: 0 0 auto; width: 280px; min-width: 200px; max-width: 50%; 
-            height: 75vh; min-height: 400px; max-height: 90vh; 
-            background-color: var(--box-bg); padding: 20px; padding-bottom: 40px; border-radius: 10px; 
-            display: flex; flex-direction: column; gap: 10px; border: 1px solid var(--border-color); 
-            overflow-y: auto; overflow-x: hidden; resize: both;
-        }
+        .sidebar { flex: 0 0 auto; width: 280px; min-width: 200px; max-width: 50%; height: 75vh; min-height: 400px; max-height: 90vh; background-color: var(--box-bg); padding: 20px; padding-bottom: 40px; border-radius: 10px; display: flex; flex-direction: column; gap: 10px; border: 1px solid var(--border-color); overflow-y: auto; overflow-x: hidden; resize: both; }
         
         .btn-menu { background-color: var(--btn-bg); color: var(--btn-text); border: 1px solid var(--border-color); padding: 12px; border-radius: 5px; cursor: pointer; text-align: left; transition: 0.2s; font-weight: bold; line-height: 1.3;}
         body[dir="rtl"] .btn-menu { text-align: right; }
         .btn-menu:hover { border-color: var(--sidebar-header); }
-        
-        /* === ПОДСВЕТКА АКТИВНЫХ ЭЛЕМЕНТОВ === */
         .btn-tab { background-color: var(--sidebar-header); border-color: transparent; }
         .btn-tab.active { background-color: var(--success-color); color: #000; box-shadow: 0 0 15px rgba(0,255,0,0.3); }
+        .btn-update-app { background-color: var(--success-color); color: #000; border: none; text-align: center; }
         
         .lesson-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 5px;}
         .btn-lesson { background-color: var(--lesson-bg); color: var(--lesson-text); border-left: 3px solid var(--lesson-border); }
         .btn-exam { background-color: var(--exam-bg); color: var(--exam-text); border-left: 3px solid var(--exam-border); }
         body[dir="rtl"] .btn-lesson, body[dir="rtl"] .btn-exam { border-left: none; border-right: 3px solid var(--lesson-border); }
+        .btn-lesson.active, .btn-exam.active { border-left: 5px solid var(--success-color) !important; background-color: rgba(0, 255, 0, 0.15) !important; color: var(--success-color) !important; box-shadow: inset 0 0 10px rgba(0,255,0,0.1); }
+        body.light-theme .btn-lesson.active, body.light-theme .btn-exam.active { background-color: #d4edda !important; color: #155724 !important; border-left: 5px solid #28a745 !important; }
         
-        /* Активный урок */
-        .btn-lesson.active, .btn-exam.active {
-            border-left: 5px solid var(--success-color) !important;
-            background-color: rgba(0, 255, 0, 0.15) !important;
-            color: var(--success-color) !important;
-            box-shadow: inset 0 0 10px rgba(0,255,0,0.1);
-        }
-        body.light-theme .btn-lesson.active, body.light-theme .btn-exam.active {
-            background-color: #d4edda !important; color: #155724 !important; border-left: 5px solid #28a745 !important;
-        }
-        body[dir="rtl"] .btn-lesson.active, body[dir="rtl"] .btn-exam.active { border-left: none !important; border-right: 5px solid var(--success-color) !important; }
-
-        .btn-update-app { background-color: var(--success-color); color: #000; border: none; text-align: center; }
-        .btn-update-app:hover { box-shadow: 0 0 10px var(--success-color); }
-
         .api-block { background-color: var(--bg-color); padding: 15px; border-radius: 8px; border: 1px dashed var(--border-color); margin-top: 10px; flex-shrink: 0;}
         .toggle-container { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; font-weight: bold; }
         .switch { position: relative; display: inline-block; width: 40px; height: 20px; flex-shrink: 0;}
@@ -121,22 +80,17 @@
         input:checked + .slider { background-color: var(--success-color); }
         input:checked + .slider:before { transform: translateX(20px); }
         .api-input { width: 100%; padding: 10px; margin-bottom: 10px; background: var(--editor-bg); color: var(--editor-text); border: 1px solid var(--border-color); border-radius: 4px; display: none; }
-        .api-btn { width: 100%; padding: 10px; background-color: var(--success-color); color: #000; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; display: none; }
+        .api-btn, .btn-update { width: 100%; padding: 10px; font-weight: bold; border: none; border-radius: 4px; cursor: pointer; display: none; }
+        .api-btn { background-color: var(--success-color); color: #000; }
         .sync-info { display: none; flex-direction: column; gap: 10px; background-color: var(--info-bg); padding: 15px; border-radius: 5px; margin-top: 10px; border: 1px solid var(--border-color); }
-        .btn-update { background-color: var(--sidebar-header); color: white; border: none; padding: 10px; border-radius: 4px; cursor: pointer; font-weight: bold; display: none; }
+        .btn-update { background-color: var(--sidebar-header); color: white; }
 
         .workspace { flex: 1; display: flex; flex-direction: column; min-width: 0; height: 100%; align-items: flex-start;}
         .view { display: none !important; width: 100%; flex-direction: column; min-width: 0; min-height: 0; }
         .view.active { display: flex !important; }
 
-        /* ЭКРАН 1: РЕДАКТОР */
         .editor-view { flex-direction: row !important; gap: 20px; flex-wrap: nowrap; align-items: flex-start; }
-        .box-left, .box-right { 
-            flex: 0 0 auto; min-width: 250px; height: 75vh; min-height: 300px; max-height: 90vh;
-            background-color: var(--box-bg); padding: 20px; padding-bottom: 40px; border-radius: 10px; 
-            display: flex; flex-direction: column; border: 1px solid var(--border-color); 
-            resize: both; overflow: auto; transition: border-color 0.3s, background-color 0.3s;
-        }
+        .box-left, .box-right { flex: 0 0 auto; min-width: 250px; height: 75vh; min-height: 300px; max-height: 90vh; background-color: var(--box-bg); padding: 20px; padding-bottom: 40px; border-radius: 10px; display: flex; flex-direction: column; border: 1px solid var(--border-color); resize: both; overflow: auto; transition: border-color 0.3s, background-color 0.3s; }
         .box-left { width: 50%; max-width: 80%; }
         .box-right { flex: 1 1 auto; }
         .drag-over { border: 3px dashed var(--success-color) !important; background-color: rgba(0, 255, 0, 0.1) !important; }
@@ -147,14 +101,11 @@
         
         body.auto-height-mode .app-layout { height: auto; min-height: 75vh; }
         body.auto-height-mode .sidebar { height: auto; max-height: none; }
-        body.auto-height-mode .box-left, 
-        body.auto-height-mode .box-right { height: auto !important; max-height: none !important; resize: horizontal !important; }
-        body.auto-height-mode textarea, 
-        body.auto-height-mode pre { flex: none; overflow-y: hidden !important; }
+        body.auto-height-mode .box-left, body.auto-height-mode .box-right { height: auto !important; max-height: none !important; resize: horizontal !important; }
+        body.auto-height-mode textarea, body.auto-height-mode pre { flex: none; overflow-y: hidden !important; }
 
         .buttons-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; flex-shrink: 0;}
         .export-row { display: flex; flex-wrap: wrap; gap: 10px; padding-top: 10px; border-top: 1px dashed var(--border-color); flex-shrink: 0;}
-        
         .btn { flex: 1; min-width: 110px; padding: 10px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 0.95em;}
         .btn-parse { background-color: #00d2ff; color: #000; }
         .btn-yaml { background-color: #ffaa00; color: #000; }
@@ -166,13 +117,11 @@
         .hint-box { background-color: rgba(255, 76, 76, 0.1); border-left: 5px solid var(--error-color); padding: 15px; margin-top: 15px; border-radius: 4px; display: none; color: var(--error-color); font-weight: bold; flex-shrink: 0; white-space: pre-wrap;}
         .status-bar { margin-bottom: 10px; font-weight: bold; flex-shrink: 0;}
         
-        /* ЭКРАН 2: ЖУРНАЛ */
         .journal-view { background-color: var(--box-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 30px; padding-bottom: 40px; height: 75vh; min-height: 300px; max-height: 90vh; overflow: auto; resize: both; line-height: 1.6;}
         .journal-block { background-color: var(--editor-bg); padding: 15px; border-left: 4px solid var(--sidebar-header); margin-bottom: 20px; border-radius: 4px; font-family: monospace; text-align: left; }
         body[dir="rtl"] .journal-block { text-align: right; border-left: none; border-right: 4px solid var(--sidebar-header); }
         .j-title { color: var(--sidebar-header); margin-top: 30px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;}
         
-        /* ЭКРАН 3: ЧАТ С ИИ */
         .chat-view { background-color: var(--box-bg); border: 1px solid var(--border-color); border-radius: 10px; height: 75vh; min-height: 300px; max-height: 90vh; overflow: auto; resize: both; padding-bottom: 5px; transition: 0.3s;}
         .chat-history { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
         .chat-msg { max-width: 80%; padding: 12px 18px; border-radius: 15px; line-height: 1.4; word-break: break-word; white-space: pre-wrap; }
@@ -180,17 +129,13 @@
         .msg-ai { background-color: var(--chat-ai); align-self: flex-start; border-bottom-left-radius: 2px; border: 1px solid var(--success-color); color: var(--success-color); }
         body[dir="rtl"] .msg-user { align-self: flex-start; border-bottom-right-radius: 15px; border-bottom-left-radius: 2px; }
         body[dir="rtl"] .msg-ai { align-self: flex-end; border-bottom-left-radius: 15px; border-bottom-right-radius: 2px; }
-        
+        .chat-header-row { display: flex; justify-content: space-between; align-items: center; padding: 20px 20px 0 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px;}
         .chat-input-area { display: flex; padding: 15px; background-color: var(--bg-color); border-top: 1px solid var(--border-color); gap: 10px; flex-shrink: 0; padding-right: 30px; align-items: center;}
-        
-        /* СКРЕПКА (ФАЙЛ ДЛЯ ЧАТА) */
         .chat-upload-btn { background-color: var(--box-bg); color: var(--text-color); border: 1px solid var(--border-color); border-radius: 50%; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer; flex-shrink: 0; transition: 0.2s;}
         .chat-upload-btn:hover { background-color: var(--border-color); transform: scale(1.05); }
-        
         .chat-input-area input { flex-grow: 1; padding: 12px; border-radius: 20px; border: 1px solid var(--border-color); background-color: var(--editor-bg); color: var(--text-color); outline: none; }
         .chat-input-area button { padding: 10px 20px; border-radius: 20px; background-color: var(--success-color); color: #000; font-weight: bold; border: none; cursor: pointer; }
 
-        /* ЭКРАН 4: ЛОГИ */
         .logs-view { background-color: var(--box-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 20px; padding-bottom: 25px; height: 75vh; min-height: 300px; max-height: 90vh; overflow: auto; resize: both;}
         .logs-container { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; background-color: var(--editor-bg); padding: 15px; border-radius: 5px; border: 1px solid var(--border-color); height: calc(100% - 100px);}
         .log-entry { padding: 8px; border-radius: 4px; border-left: 4px solid var(--border-color); background-color: var(--bg-color); word-break: break-word; flex-shrink: 0; height: auto;}
@@ -200,17 +145,22 @@
         .log-time { color: #888; font-size: 0.85rem; margin-right: 10px; }
         .logs-view .buttons-row { margin-right: 20px; flex-shrink: 0;} 
 
-        /* ОКНО НАСТРОЕК */
         .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); justify-content: center; align-items: center; padding: 20px;}
         .modal-content { background-color: var(--box-bg); padding: 30px; border-radius: 10px; width: 100%; max-width: 500px; border: 1px solid var(--border-color); box-shadow: 0 5px 25px rgba(0,0,0,0.8); display: flex; flex-direction: column; gap: 15px; text-align: left; max-height: 90vh; overflow-y: auto;}
         body[dir="rtl"] .modal-content { text-align: right; }
         .setting-row { display: flex; flex-direction: column; gap: 8px; font-weight: bold; margin-bottom: 5px;}
-        .setting-row select, .setting-row input[type="range"], .setting-row input[type="color"] { width: 100%; padding: 10px; cursor: pointer; border-radius: 5px; border: 1px solid var(--border-color); background: var(--editor-bg); color: var(--text-color);}
+        .setting-row select, .setting-row input[type="range"], .setting-row input[type="color"], .setting-row input[type="password"] { width: 100%; padding: 10px; cursor: pointer; border-radius: 5px; border: 1px solid var(--border-color); background: var(--editor-bg); color: var(--text-color);}
         .color-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .close-btn { background-color: #555; color: white; border: none; padding: 15px; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 10px; text-transform: uppercase;}
 
+        body.force-mobile .app-layout { flex-direction: column !important; height: auto !important; align-items: stretch !important;}
+        body.force-mobile .sidebar { width: 100% !important; max-width: 100% !important; height: auto !important; min-height: auto !important; max-height: none !important; resize: none !important; padding-bottom: 20px !important;}
+        body.force-mobile .editor-view { flex-direction: column !important; }
+        body.force-mobile .box-left, body.force-mobile .box-right { width: 100% !important; max-width: 100% !important; min-height: 40vh !important; resize: vertical !important; padding-bottom: 20px !important;}
+        body.force-mobile .journal-view, body.force-mobile .chat-view, body.force-mobile .logs-view { height: 60vh !important; resize: vertical !important; }
+
         @media (max-width: 850px) {
-            .app-layout { flex-direction: column; height: auto; align-items: stretch; zoom: 1 !important;}
+            .app-layout { flex-direction: column; height: auto; align-items: stretch; zoom: 1 !important; transform: none !important;}
             .sidebar { width: 100%; max-width: 100%; height: auto; min-height: auto; max-height: none; resize: none; padding-bottom: 20px;}
             .editor-view { flex-direction: column !important; }
             .box-left, .box-right { width: 100%; max-width: 100%; min-height: 40vh; resize: vertical; padding-bottom: 20px;}
@@ -221,8 +171,8 @@
 </head>
 <body>
 
-    <h1 data-i18n="mainTitle">🧠 Ultimate JSON/YAML Academy v26.0</h1>
-    <p class="subtitle" data-i18n="subtitle">Подсветка активных уроков, Скрепка ИИ и Энциклопедия!</p>
+    <h1 data-i18n="mainTitle">🧠 Ultimate JSON/YAML Academy v33.0</h1>
+    <p class="subtitle" data-i18n="subtitle">Живой Офлайн-ИИ, Мультиязычность и Распознавание эмоций!</p>
 
     <!-- БЛОК ЯЗЫКОВ -->
     <div class="lang-links" align="center">
@@ -238,15 +188,15 @@
         
         <!-- ЛЕВАЯ ПАНЕЛЬ -->
         <div class="sidebar">
-            <button class="btn-menu" onclick="openSettings()" data-i18n="btnSettings">⚙️ Настройки и Дизайн</button>
+            <button class="btn-menu" onclick="openSettings()" data-i18n="btnSettings">⚙️ Настройки и AI API</button>
             
             <h3 data-i18n="navTitle">Навигация</h3>
             <button class="btn-menu btn-tab active" id="tab-editor" onclick="switchView('editor')" data-i18n="tabEditor">💻 Редактор Кода</button>
             <button class="btn-menu btn-tab" id="tab-journal" onclick="switchView('journal')" data-i18n="tabJournal">📖 Журнал</button>
-            <button class="btn-menu btn-tab" id="tab-chat" onclick="switchView('chat')" data-i18n="tabChat">🤖 ИИ-Чат</button>
+            <button class="btn-menu btn-tab" id="tab-chat" onclick="switchView('chat')" data-i18n="tabChat">🤖 Нейросеть (Чат)</button>
             <button class="btn-menu btn-tab" id="tab-logs" onclick="switchView('logs')" data-i18n="tabLogs">📝 Логи</button>
 
-            <h3 data-i18n="lessonsTitle">Курс (15 шагов)</h3>
+            <h3 data-i18n="lessonsTitle">Уроки (15 шагов)</h3>
             <div class="lesson-group">
                 <button class="btn-menu btn-lesson" id="lesson-btn-1" onclick="loadLesson(1)" data-i18n="l1">1. Базовые типы</button>
                 <button class="btn-menu btn-lesson" id="lesson-btn-2" onclick="loadLesson(2)" data-i18n="l2">2. Массивы</button>
@@ -261,7 +211,7 @@
                 <button class="btn-menu btn-lesson" id="lesson-btn-11" onclick="loadLesson(11)" data-i18n="l11">11. Proxy Outbounds</button>
                 <button class="btn-menu btn-lesson" id="lesson-btn-12" onclick="loadLesson(12)" data-i18n="l12">12. Routing Rules</button>
                 <button class="btn-menu btn-lesson" id="lesson-btn-13" onclick="loadLesson(13)" data-i18n="l13">13. Clash API</button>
-                <button class="btn-menu btn-exam" id="lesson-btn-14" onclick="loadLesson(14)" data-i18n="examBtn">14. 🛑 Финальный Экзамен</button>
+                <button class="btn-menu btn-exam" id="lesson-btn-14" onclick="loadLesson(14)" data-i18n="examBtn">14. 🛑 Экзамен</button>
                 <button class="btn-menu" id="lesson-btn-15" onclick="loadLesson(15)" style="margin-top:5px;" data-i18n="emptyBtn">15. + Пустой</button>
             </div>
             
@@ -282,7 +232,7 @@
                 </div>
             </div>
 
-            <h3 style="margin-top: 15px;" data-i18n="appVer">Версия 26.0</h3>
+            <h3 style="margin-top: 15px;" data-i18n="appVer">Версия 33.0</h3>
             <button class="btn-menu btn-update-app" onclick="checkAppUpdates()" data-i18n="btnUpdateApp">🚀 Обновления App</button>
         </div>
 
@@ -303,12 +253,11 @@
                     <div class="export-row">
                         <button class="btn btn-upload" onclick="document.getElementById('fileUploader').click()" data-i18n="btnUploadFile">📂 Открыть файл</button>
                         <input type="file" id="fileUploader" accept=".json,.txt,.conf,.yaml,.yml" style="display:none" onchange="handleFileUpload(event, 'editor')">
-                        
                         <button class="btn btn-exp" onclick="downloadFile('json')" data-i18n="btnExpJson">💾 .json</button>
                         <button class="btn btn-exp" onclick="downloadFile('yaml')" data-i18n="btnExpYaml">💾 .yaml</button>
                         <button class="btn btn-happ" onclick="generateHapp()" data-i18n="btnExpHapp">🚀 HAPP</button>
-                        <button class="btn btn-share" onclick="shareCode()" data-i18n="btnShare">🔗 Поделиться (URL)</button>
-                        <button class="btn btn-share" style="background-color: #ff00b3;" onclick="generateEmbed()" data-i18n="btnEmbed">📦 Встроить (Iframe)</button>
+                        <button class="btn btn-share" onclick="shareCode()" data-i18n="btnShare">🔗 Поделиться</button>
+                        <button class="btn btn-share" style="background-color: #ff00b3;" onclick="generateEmbed()" data-i18n="btnEmbed">📦 Встроить</button>
                     </div>
                 </div>
                 
@@ -320,56 +269,54 @@
                 </div>
             </div>
 
-            <!-- ЭКРАН 2: ЖУРНАЛ (ЭНЦИКЛОПЕДИЯ) -->
+            <!-- ЭКРАН 2: ЖУРНАЛ -->
             <div id="view-journal" class="view journal-view">
-                <h2 data-i18n="jTitle">📖 Энциклопедия: JSON, YAML и Архитектура</h2>
-                
-                <h3 class="j-title" data-i18n="j1Title">1. Введение: JSON и YAML</h3>
-                <p data-i18n="j1Desc"><b>JSON (JavaScript Object Notation)</b> — строгий стандарт передачи данных для машин. Он быстрый и однозначный.<br><b>YAML (YAML Ain't Markup Language)</b> — надстройка над JSON, созданная для удобного чтения людьми. Часто используется для конфигурации серверов.</p>
-                
-                <h3 class="j-title" data-i18n="j2Title">2. Структура JSON: Объекты и Массивы</h3>
-                <p data-i18n="j2Desc">Данные хранятся в двух видах:<br><b>Объект { }</b>: Набор пар «Ключ: Значение».<br><b>Массив [ ]</b>: Упорядоченный список (как список покупок).</p>
+                <h2 data-i18n="jTitle">📖 Энциклопедия</h2>
+                <h3 class="j-title" data-i18n="j1Title">1. Введение</h3>
+                <p data-i18n="j1Desc">JSON — строгий стандарт. YAML — для людей.</p>
+                <h3 class="j-title" data-i18n="j2Title">2. Структура JSON</h3>
+                <p data-i18n="j2Desc">Объекты { } и массивы [ ].</p>
                 <div class="journal-block">{"name": "Иван"}<br>[1, 2, 3]</div>
-                
                 <h3 class="j-title" data-i18n="j3Title">3. Типы данных JSON</h3>
-                <p data-i18n="j3Desc">JSON поддерживает только 6 типов данных:</p>
-                <div class="journal-block">"Строка" (текст)<br>42 (число)<br>3.14 (дробь)<br>true/false (логическое)<br>null (пустота)</div>
-
-                <h3 class="j-title" data-i18n="j4Title">4. Строгие правила и Ошибки</h3>
-                <p data-i18n="j4Desc">JSON не прощает ошибок. Ключи всегда в "двойных кавычках". Одинарные кавычки (' ') вызовут краш. Висячие запятые перед } или ] строго запрещены.</p>
-                <div class="journal-block">{"name": "Иван"} // Правильно<br>{name: "Иван"}   // ОШИБКА<br>[1, 2, 3,]       // ОШИБКА</div>
-                
-                <h3 class="j-title" data-i18n="j5Title">5. Экранирование спецсимволов</h3>
-                <p data-i18n="j5Desc">Если в тексте нужна кавычка, ставим перед ней слеш. Перенос строки — \n, табуляция — \t.</p>
-                <div class="journal-block">\" — двойная кавычка<br>\\ — слеш<br>\n — перенос текста</div>
-                
-                <h3 class="j-title" data-i18n="j6Title">6. Форматирование (Minify vs Pretty)</h3>
-                <p data-i18n="j6Desc">Для компьютера пробелы и переносы не нужны. Сжатый код работает так же, но экономит память (Minified).</p>
-                <div class="journal-block">{"a":1,"b":2} // Сжатый (Minified)<br><br>{\n  "a": 1,\n  "b": 2\n} // Красивый (Pretty)</div>
-                
-                <h3 class="j-title" data-i18n="j7Title">7. YAML: Синтаксис и Отступы</h3>
-                <p data-i18n="j7Desc">YAML отказывается от скобок и кавычек. Структура строится за счет <b>строгих пробелов</b> (Tab запрещен!). Массивы обозначаются дефисом.</p>
-                <div class="journal-block"># Комментарий<br>server: Proxy<br>dns:<br>  - 8.8.8.8</div>
-
-                <h3 class="j-title" data-i18n="j8Title">8. YAML: Многострочный текст</h3>
-                <p data-i18n="j8Desc">Символ <code>|</code> сохраняет все переносы строк точно так, как вы их написали. Символ <code>></code> склеивает все переносы в одну длинную строку.</p>
-                <div class="journal-block">message: |<br>  Первая строка.<br>  Вторая строка.</div>
-                
+                <p data-i18n="j3Desc">Только 6 типов.</p>
+                <div class="journal-block">"Строка", 42, 3.14, true, false, null</div>
+                <h3 class="j-title" data-i18n="j4Title">4. Строгие правила</h3>
+                <p data-i18n="j4Desc">Ключи в кавычках.</p>
+                <div class="journal-block">{"name": "Иван"} // Правильно<br>{name: "Иван"}   // ОШИБКА</div>
+                <h3 class="j-title" data-i18n="j5Title">5. Экранирование</h3>
+                <p data-i18n="j5Desc">Слеши для спецсимволов.</p>
+                <div class="journal-block">\" — двойная кавычка<br>\\ — слеш<br>\n — перенос</div>
+                <h3 class="j-title" data-i18n="j6Title">6. Форматирование</h3>
+                <p data-i18n="j6Desc">Minified экономит память.</p>
+                <div class="journal-block">{"a":1,"b":2} // Minified</div>
+                <h3 class="j-title" data-i18n="j7Title">7. YAML: Синтаксис</h3>
+                <p data-i18n="j7Desc">Строгие отступы.</p>
+                <div class="journal-block">server: Proxy<br>dns:<br>  - 8.8.8.8</div>
+                <h3 class="j-title" data-i18n="j8Title">8. YAML: Текст</h3>
+                <p data-i18n="j8Desc">Символы | и >.</p>
+                <div class="journal-block">message: |<br>  Строка 1<br>  Строка 2</div>
                 <h3 class="j-title" data-i18n="j9Title">9. Что такое Base64 и HAPP?</h3>
-                <p data-i18n="j9Desc"><b>Base64</b> — это алгоритм перевода любых данных в безопасный текст (только латиница и цифры).<br><b>HAPP-ссылка</b> (happ://routing/onadd/...) — это стандарт для быстрой передачи настроек в VPN-клиенты (v2ray, Sing-box). Клиент читает ссылку, декодирует Base64 и получает готовый JSON.</p>
-                
+                <p data-i18n="j9Desc">Сжатый формат для Proxy.</p>
                 <h3 class="j-title" data-i18n="j10Title">10. Шаринг и Iframe</h3>
-                <p data-i18n="j10Desc">Кнопка "Поделиться" кодирует твой код в Base64 прямо в URL-ссылку браузера (серверы не нужны!). Код Iframe позволяет вставить этот редактор прямо в HTML твоего блога.</p>
+                <p data-i18n="j10Desc">Глубокие ссылки и встраивание.</p>
             </div>
 
             <!-- ЭКРАН 3: ЧАТ С ИИ -->
             <div id="view-chat" class="view chat-view" id="chatDropZone">
-                <h2 style="margin:20px 20px 0 20px;" data-i18n="tabChat">🤖 ИИ-Чат (Авто-исправление кода)</h2>
+                <div class="chat-header-row">
+                    <h2 style="margin:0;" data-i18n="tabChat">🤖 Нейросеть (Чат)</h2>
+                    <div class="toggle-container" style="margin:0;">
+                        <span data-i18n="aiModeLabel" style="font-size:0.9rem; margin-right:10px;">Онлайн ИИ:</span>
+                        <label class="switch">
+                            <input type="checkbox" id="aiOnlineToggle" onchange="applySettings()">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
                 <div class="chat-history" id="chatHistory"></div>
                 <div class="chat-input-area">
                     <button class="chat-upload-btn" onclick="document.getElementById('chatFileUploader').click()" title="Вставить файл">📎</button>
                     <input type="file" id="chatFileUploader" accept=".json,.txt,.conf,.yaml,.yml" style="display:none" onchange="handleFileUpload(event, 'chat')">
-                    
                     <input type="text" id="chatInput" placeholder="..." onkeypress="handleEnter(event)">
                     <button onclick="sendChatMessage()" data-i18n="btnSend">Отправить</button>
                 </div>
@@ -391,7 +338,50 @@
     <!-- ОКНО НАСТРОЕК -->
     <div id="settingsModal" class="modal">
         <div class="modal-content">
-            <h2 data-i18n="btnSettings">⚙️ Настройки</h2>
+            <h2 data-i18n="btnSettings">⚙️ Настройки и AI API</h2>
+            
+            <div class="setting-row" style="background: rgba(0,210,255,0.1); padding: 15px; border-radius: 8px; border: 1px solid var(--editor-text);">
+                <label style="color: var(--editor-text); font-size: 1.1rem;" data-i18n="aiSettingsTitle">🧠 Провайдер Нейросети</label>
+                
+                <select id="aiProvider" onchange="applySettings()" style="margin-top: 10px;">
+                    <optgroup label="DeepSeek API">
+                        <option value="deepseek-flash">DeepSeek (v4-flash - Быстрая)</option>
+                        <option value="deepseek-pro">DeepSeek (v4-pro - Мощная)</option>
+                    </optgroup>
+                    <optgroup label="OpenAI API">
+                        <option value="openai">ChatGPT (gpt-4o-mini)</option>
+                    </optgroup>
+                    <optgroup label="Anthropic API">
+                        <option value="anthropic">Claude 3.5 (Haiku)</option>
+                    </optgroup>
+                    <optgroup label="Google API">
+                        <option value="gemini">Gemini 1.5 Flash</option>
+                    </optgroup>
+                    <optgroup label="OpenRouter API (All-in-One)">
+                        <option value="openrouter">Qwen / Другие (OpenRouter)</option>
+                    </optgroup>
+                    <optgroup label="Groq API">
+                        <option value="groq">Llama 3 (Сверхбыстро)</option>
+                    </optgroup>
+                </select>
+
+                <label style="margin-top:10px; font-weight:normal;">🔑 API Key:</label>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <input type="password" id="aiApiKey" placeholder="..." style="font-family: monospace; flex-grow: 1; min-width: 150px;">
+                    <button class="btn btn-parse" style="padding: 10px; flex: 1; min-width: 100px;" onclick="saveApiKey()" data-i18n="btnSaveKey">Применить</button>
+                    <button class="btn" style="background-color: var(--error-color); color: white; padding: 10px; flex: 1; min-width: 100px;" onclick="deleteApiKey()" data-i18n="btnDelKey">Удалить</button>
+                </div>
+                <div id="keyStatus" style="font-size: 0.9rem; font-weight: bold; margin-top: 8px;"></div>
+                <span style="font-size: 0.8rem; color: #aaa; margin-top: 5px; display: block;" data-i18n="apiHint2">Выберите нейросеть и укажите ключ. Без ключа работает обучаемый Офлайн-ИИ.</span>
+            </div>
+
+            <div class="setting-row" style="margin-top:15px;">
+                <label data-i18n="setDeviceMode">Интерфейс устройства:</label>
+                <select id="deviceMode" onchange="applySettings()">
+                    <option value="pc" data-i18n="modePc">ПК (Десктоп)</option>
+                    <option value="mobile" data-i18n="modeMobile">Телефон (Мобильный вид)</option>
+                </select>
+            </div>
             
             <div class="setting-row">
                 <label data-i18n="setEditorMode">Режим высоты окон:</label>
@@ -402,7 +392,7 @@
             </div>
 
             <div class="setting-row">
-                <label data-i18n="setTheme">Тема:</label>
+                <label data-i18n="setTheme">Тема оформления:</label>
                 <select id="themeSelect" onchange="applySettings()">
                     <option value="dark">Dark</option>
                     <option value="light">Light</option>
@@ -421,22 +411,10 @@
 
             <h3 style="margin-top: 20px;" data-i18n="customDesignTitle">🎨 Кастомный Дизайн</h3>
             <div class="color-grid">
-                <div class="setting-row">
-                    <label data-i18n="colBg">Фон:</label>
-                    <input type="color" id="colBg" value="#1a1a24" onchange="applyCustomColors()">
-                </div>
-                <div class="setting-row">
-                    <label data-i18n="colBox">Панели:</label>
-                    <input type="color" id="colBox" value="#232332" onchange="applyCustomColors()">
-                </div>
-                <div class="setting-row">
-                    <label data-i18n="colAccent">Акцент:</label>
-                    <input type="color" id="colAccent" value="#00d2ff" onchange="applyCustomColors()">
-                </div>
-                <div class="setting-row">
-                    <label data-i18n="colText">Текст:</label>
-                    <input type="color" id="colText" value="#e0e0e0" onchange="applyCustomColors()">
-                </div>
+                <div class="setting-row"><label data-i18n="colBg">Фон:</label><input type="color" id="colBg" value="#1a1a24" onchange="applyCustomColors()"></div>
+                <div class="setting-row"><label data-i18n="colBox">Панели:</label><input type="color" id="colBox" value="#232332" onchange="applyCustomColors()"></div>
+                <div class="setting-row"><label data-i18n="colAccent">Акцент:</label><input type="color" id="colAccent" value="#00d2ff" onchange="applyCustomColors()"></div>
+                <div class="setting-row"><label data-i18n="colText">Текст:</label><input type="color" id="colText" value="#e0e0e0" onchange="applyCustomColors()"></div>
             </div>
             
             <div class="buttons-row" style="margin-top: 10px;">
@@ -451,60 +429,66 @@
     </div>
 
     <script>
+        function memoryGet(key, defValue = null) { try { return localStorage.getItem(key) || defValue; } catch(e) { return defValue; } }
+        function memorySet(key, value) { try { localStorage.setItem(key, value); } catch(e) {} }
+        function memoryRemove(key) { try { localStorage.removeItem(key); } catch(e) {} }
+
         const i18n = {
             ru: {
-                mainTitle: "🧠 Ultimate JSON/YAML Academy v26.0", subtitle: "Умный интерфейс, подсветка Уроков и Скрепка ИИ!",
-                btnSettings: "⚙️ Настройки", navTitle: "Навигация", tabEditor: "💻 Редактор Кода", tabJournal: "📖 Журнал",
-                tabChat: "🤖 ИИ-Чат", tabLogs: "📝 Логи", lessonsTitle: "Уроки (15 шагов)", 
-                l1: "1. Базовые типы", l2: "2. Массивы", l3: "3. Объекты в массиве", l4: "4. Вложенность", l5: "5. Экранирование",
+                mainTitle: "🧠 Ultimate JSON/YAML Academy v33.0", subtitle: "OMNI-AI: Умный Офлайн Бот и интеграция DeepSeek!",
+                btnSettings: "⚙️ Настройки и AI API", navTitle: "Навигация", tabEditor: "💻 Редактор Кода", tabJournal: "📖 Журнал",
+                tabChat: "🤖 Нейросеть (Чат)", tabLogs: "📝 Логи", lessonsTitle: "Уроки (15 шагов)", 
+                l1: "1. Базовые типы", l2: "2. Массивы", l3: "3. Объекты", l4: "4. Вложенность", l5: "5. Экранирование",
                 l6: "6. Сложный конфиг", l7: "7. Прокси Routing", l8: "8. Значения Null", l9: "9. API Массивы", l10: "10. Матрицы",
                 l11: "11. Proxy Outbounds", l12: "12. Routing Rules", l13: "13. Clash API",
                 examBtn: "14. 🛑 Экзамен", emptyBtn: "15. + Пустой", apiTitle: "Сеть (API)", onlineMode: "Режим Онлайн", 
                 apiDownload: "📥 Скачать", downloadedAt: "🕒 Скачано:", apiUpdate: "🔄 Обновить", 
                 codeTitle: "📝 Ввод (Strict JSON) ↘", resultTitle: "📊 Результат ↘", btnCheck: "⚙️ Проверка", btnYaml: "✨ В YAML", 
                 btnExpJson: "💾 .json", btnExpYaml: "💾 .yaml", btnExpB64: "🔗 Base64", btnExpHapp: "🚀 HAPP",
-                btnShare: "🔗 Поделиться", btnEmbed: "📦 Встроить", btnUploadFile: "📂 Открыть",
+                btnShare: "🔗 Поделиться", btnEmbed: "📦 Встроить", btnUploadFile: "📂 Открыть файл",
                 statusReady: "Готов к работе", btnSend: "Отправить", 
                 logsTitle: "📝 Системные логи", clearLogs: "🗑 Очистить", btnDownloadLogs: "💾 Скачать (.txt)", setTheme: "Тема:",
                 themeCustom: "Своя (Custom)", setFont: "Шрифт:", setZoom: "Масштаб:", customDesignTitle: "🎨 Кастомный Дизайн",
                 colBg: "Фон:", colBox: "Панели:", colAccent: "Акцент:", colText: "Текст:",
                 btnExportTheme: "📤 Экспорт", btnImportTheme: "📥 Импорт", btnResetTheme: "🔄 Сброс", btnClose: "Закрыть",
-                appVer: "Версия 26.0", btnUpdateApp: "🚀 Обновления App",
-                setEditorMode: "Режим высоты окон:", modeAuto: "Авто (Блоки нельзя тянуть вниз)", modeManual: "Ручной (Тянуть за угол)",
-                
-                jTitle: "📖 Энциклопедия: JSON, YAML и Архитектура", 
-                j1Title: "1. Введение: JSON и YAML", j1Desc: "JSON — строгий стандарт. YAML — удобная надстройка для людей.", 
-                j2Title: "2. Структура JSON", j2Desc: "Объекты { } и массивы [ ].",
-                j3Title: "3. Типы данных JSON", j3Desc: "Только 6 типов данных.", 
-                j4Title: "4. Строгие правила", j4Desc: "Ключи в кавычках. Нет висячих запятых.",
-                j5Title: "5. Экранирование", j5Desc: "Слеши для спецсимволов.", 
-                j6Title: "6. Форматирование", j6Desc: "Minified экономит память.",
-                j7Title: "7. YAML: Синтаксис", j7Desc: "Строгие отступы пробелами.", 
-                j8Title: "8. YAML: Текст", j8Desc: "Символы | и >.",
-                j9Title: "9. Что такое Base64 и HAPP?", j9Desc: "Сжатый формат для передачи настроек в Proxy.", 
-                j10Title: "10. Шаринг и Iframe", j10Desc: "Глубокие ссылки и встраивание.",
-
-                logAppStart: "Приложение запущено.", logCleared: "Логи очищены.", logLangChange: "Язык изменен на:",
-                logApiRestore: "API сессия восстановлена.", logThemeApply: "Кастомные цвета применены.", logThemeExport: "Тема сохранена.",
-                logThemeImport: "Тема загружена.", logThemeImportErr: "Ошибка загрузки темы:", logSettingsChange: "Настройки изменены.",
-                logThemeReset: "Дизайн сброшен по умолчанию.", logNav: "Открыта вкладка:", logLesson: "Загружен урок:", 
-                logNetToggle: "Сетевой режим:", logApiStart: "Скачивание с:", logApiSuccess: "Данные скачаны.", logApiErr: "Сбой загрузки:", 
-                logParseStart: "Парсинг JSON...", logParseSuccess: "Парсинг успешен.", logParseErr: "Ошибка синтаксиса:", 
-                logYamlStart: "Конвертация в YAML...", logYamlSuccess: "Конвертация успешна.", logYamlErr: "Отмена из-за ошибки.", 
-                logExpStart: "Подготовка файла:", logExpErr: "Экспорт отменен.", logExpSuccess: "Файл скачан:", 
-                logB64Start: "Генерация Base64...", logB64Success: "Base64 скопирован.", logHappStart: "Сборка HAPP...", logHappSuccess: "HAPP ссылка скопирована.",
-                logChatUser: "Вопрос ИИ:", logChatAi: "ИИ ответил.", alertThemeOk: "Тема загружена!", alertThemeErr: "Ошибка темы!",
-                alertResetTheme: "Сбросить дизайн к настройкам по умолчанию?", alertConnect: "Ошибка подключения!", alertCopy: "Скопировано в буфер!", alertUpdate: "Перейти на GitHub для проверки обновлений?",
-                aiHello: "Привет! Я ИИ-помощник 🤖. Напиши 'исправь код', и я сам починю твои ошибки!\nЛибо нажми на 📎 (Скрепку), чтобы загрузить мне свой файл.", limitErr: "Слишком большой объем данных.", depthErr: "Превышен лимит вложенности.",
-                sharedLessonLoaded: "🌟 Загружен кастомный урок из ссылки!", alertCopyLink: "Уникальная ссылка на твой код скопирована в буфер обмена!\nОтправь её друзьям.",
+                appVer: "Версия 33.0", btnUpdateApp: "🚀 Обновления App",
+                setEditorMode: "Режим высоты окон:", modeAuto: "Авто", modeManual: "Ручной",
+                setDeviceMode: "Интерфейс устройства:", modePc: "ПК (Десктоп)", modeMobile: "Телефон (Мобильный вид)",
+                aiSettingsTitle: "🧠 Настройки ИИ", aiModeLabel: "Онлайн ИИ:",
+                btnSaveKey: "Применить", btnDelKey: "Удалить", apiHint2: "Выберите провайдера.",
+                keyActive: "🟢 Ключ активен", keyNotSet: "🔴 Ключ не задан", keyLinked: "✅ API ключ привязан!",
+                jTitle: "📖 Энциклопедия", j1Title: "1. Введение", j1Desc: "JSON — строгий стандарт.", 
+                j2Title: "2. Структура JSON", j2Desc: "Объекты { } и массивы [ ].", j3Title: "3. Типы", j3Desc: "6 типов.", 
+                j4Title: "4. Правила", j4Desc: "Ключи в кавычках.", j5Title: "5. Экранирование", j5Desc: "Слеши.", 
+                j6Title: "6. Формат", j6Desc: "Minified.", j7Title: "7. YAML", j7Desc: "Отступы.", 
+                j8Title: "8. YAML Текст", j8Desc: "| и >.", j9Title: "9. Base64 & HAPP", j9Desc: "Для Proxy.", 
+                j10Title: "10. Iframe", j10Desc: "Встраивание.",
+                logAppStart: "Запущено.", logCleared: "Очищено.", logLangChange: "Язык:",
+                logApiRestore: "Сессия.", logThemeApply: "Цвета.", logThemeExport: "Сохранено.",
+                logThemeImport: "Загружено.", logThemeImportErr: "Ошибка:", logSettingsChange: "Настройки.",
+                logThemeReset: "Сброшено.", logNav: "Вкладка:", logLesson: "Урок:", 
+                logNetToggle: "Сетевой режим:", logApiStart: "Скачивание с:", logApiSuccess: "Данные скачаны.", logApiErr: "Сбой:", 
+                logParseStart: "Парсинг...", logParseSuccess: "Успешно.", logParseErr: "Ошибка:", 
+                logYamlStart: "YAML...", logYamlSuccess: "Успешно.", logYamlErr: "Ошибка.", 
+                logExpStart: "Экспорт:", logExpErr: "Отменен.", logExpSuccess: "Скачан:", 
+                logB64Start: "Base64...", logB64Success: "Base64 скопирован.", logHappStart: "HAPP...", logHappSuccess: "HAPP ссылка скопирована.",
+                logChatUser: "Юзер:", logChatAi: "ИИ:", alertThemeOk: "Загружено!", alertThemeErr: "Ошибка!",
+                alertResetTheme: "Сбросить?", alertConnect: "Ошибка подключения!", alertCopy: "Скопировано в буфер!", 
+                alertUpdate: "Открыть GitHub?", alertNewUpdate: "🎉 Доступна версия:", alertNoUpdate: "✅ Последняя версия!", 
+                aiHello: "Привет! Я ИИ 🤖. Если есть ключ API — я настоящая нейросеть. Если нет — я учусь в офлайне! Напиши 'запомни: X = Y', чтобы обучить меня.\nИли напиши 'исправь код', и я починю твой редактор.", 
+                limitErr: "Слишком большой объем данных.", depthErr: "Превышен лимит.",
+                sharedLessonLoaded: "🌟 Загружен кастомный урок!", alertCopyLink: "Ссылка скопирована!",
                 alertCopyIframe: "Код Iframe скопирован!", fileUploaded: "Загружен файл:",
-                aiFileGood: "✅ Код в файле идеален! Ошибок синтаксиса нет.", aiFileBad: "❌ Найдена ошибка:\n"
+                aiFileGood: "✅ Код идеален!", aiFileBad: "❌ Найдена ошибка:\n",
+                fallbackNoUnderstand: "🔵 [Offline AI]: Хмм, я не уверен, что понял. Попробуй спросить про синтаксис JSON или напиши 'исправь код'.\nЕсли хочешь, можешь обучить меня командой: `запомни: X = Y`.",
+                fallbackNo: "🔵 [Offline AI]: Я могу ошибаться, ведь в офлайн-режиме я использую простые алгоритмы, а не нейросеть. Подключи ключ DeepSeek для максимальной точности!",
+                fallbackThanks: "🔵 [Offline AI]: Всегда рад помочь! Обращайся ещё."
             },
             en: {
-                mainTitle: "🧠 Ultimate JSON/YAML Academy v26.0", subtitle: "Active highlights, AI Attachment & Encyclopedia!",
-                btnSettings: "⚙️ Settings", navTitle: "Navigation", tabEditor: "💻 Editor", tabJournal: "📖 Journal",
-                tabChat: "🤖 AI Chat", tabLogs: "📝 Logs", lessonsTitle: "Course (15 Steps)", 
-                l1: "1. Basic Types", l2: "2. Arrays", l3: "3. Objects in Arrays", l4: "4. Nesting", l5: "5. Escaping",
+                mainTitle: "🧠 Ultimate JSON/YAML Academy v33.0", subtitle: "Smart Offline AI & DeepSeek Integration!",
+                btnSettings: "⚙️ Settings & AI", navTitle: "Navigation", tabEditor: "💻 Editor", tabJournal: "📖 Journal",
+                tabChat: "🤖 Neural Net (Chat)", tabLogs: "📝 Logs", lessonsTitle: "Course (15 Steps)", 
+                l1: "1. Basic Types", l2: "2. Arrays", l3: "3. Objects", l4: "4. Nesting", l5: "5. Escaping",
                 l6: "6. Complex Config", l7: "7. Proxy Routing", l8: "8. Null Values", l9: "9. API Arrays", l10: "10. Matrices",
                 l11: "11. Proxy Outbounds", l12: "12. Routing Rules", l13: "13. Clash API",
                 examBtn: "14. 🛑 Exam", emptyBtn: "15. + Empty", apiTitle: "Network (API)", onlineMode: "Online Mode", 
@@ -517,196 +501,47 @@
                 themeCustom: "Custom", setFont: "Font Size:", setZoom: "Scale:", customDesignTitle: "🎨 Custom Design",
                 colBg: "Background:", colBox: "Panels:", colAccent: "Accent:", colText: "Text:",
                 btnExportTheme: "📤 Export", btnImportTheme: "📥 Import", btnResetTheme: "🔄 Reset", btnClose: "Close",
-                appVer: "Version 26.0", btnUpdateApp: "🚀 App Updates",
-                setEditorMode: "Window Height Mode:", modeAuto: "Auto (Cannot drag down)", modeManual: "Manual (Drag corner)",
-                
-                jTitle: "📖 Encyclopedia: JSON, YAML & Architecture", 
-                j1Title: "1. Introduction", j1Desc: "JSON is strict. YAML is for humans.", 
-                j2Title: "2. JSON Structure", j2Desc: "Objects { } and Arrays [ ].",
-                j3Title: "3. JSON Data Types", j3Desc: "Only 6 types.", 
-                j4Title: "4. Strict Rules", j4Desc: "Quotes and commas.",
-                j5Title: "5. Escaping", j5Desc: "Backslashes for special chars.", 
-                j6Title: "6. Formatting", j6Desc: "Minified vs Pretty.",
-                j7Title: "7. YAML: Syntax", j7Desc: "Spaces for indentation.", 
-                j8Title: "8. YAML: Text", j8Desc: "Symbols | and >.",
-                j9Title: "9. Base64 & HAPP", j9Desc: "Compressed format for proxies.", 
-                j10Title: "10. Share & Iframe", j10Desc: "Deep links and embedding.",
-
+                appVer: "Version 33.0", btnUpdateApp: "🚀 App Updates",
+                setEditorMode: "Window Height Mode:", modeAuto: "Auto", modeManual: "Manual",
+                setDeviceMode: "Device View Mode:", modePc: "PC (Desktop)", modeMobile: "Phone (Mobile)",
+                aiSettingsTitle: "🧠 AI Settings", aiModeLabel: "Online AI:",
+                btnSaveKey: "Apply", btnDelKey: "Delete", apiHint2: "Supports ChatGPT, Claude, Gemini, DeepSeek.",
+                keyActive: "🟢 Key is active", keyNotSet: "🔴 Key not set", keyLinked: "✅ API key successfully linked!",
+                jTitle: "📖 Encyclopedia", j1Title: "1. Intro", j1Desc: "JSON vs YAML.", j2Title: "2. Structure", j2Desc: "Objects & Arrays.",
+                j3Title: "3. Types", j3Desc: "6 types.", j4Title: "4. Rules", j4Desc: "Quotes and commas.",
+                j5Title: "5. Escaping", j5Desc: "Backslashes.", j6Title: "6. Formatting", j6Desc: "Minified vs Pretty.",
+                j7Title: "7. YAML", j7Desc: "Spaces.", j8Title: "8. YAML Text", j8Desc: "| and >.",
+                j9Title: "9. Base64", j9Desc: "For proxies.", j10Title: "10. Share & Iframe", j10Desc: "Deep links.",
                 logAppStart: "App started.", logCleared: "Logs cleared.", logLangChange: "Language changed to:",
-                logApiRestore: "API session restored.", logThemeApply: "Custom colors applied.", logThemeExport: "Theme saved.",
+                logApiRestore: "API restored.", logThemeApply: "Colors applied.", logThemeExport: "Theme saved.",
                 logThemeImport: "Theme loaded.", logThemeImportErr: "Theme error:", logSettingsChange: "Settings changed.",
-                logThemeReset: "Design reset to default.", logNav: "Opened tab:", logLesson: "Loaded lesson:", 
+                logThemeReset: "Design reset.", logNav: "Tab:", logLesson: "Loaded lesson:", 
                 logNetToggle: "Network mode:", logApiStart: "Downloading from:", logApiSuccess: "Data downloaded.", logApiErr: "Download failed:", 
                 logParseStart: "Parsing JSON...", logParseSuccess: "Parsing successful.", logParseErr: "Syntax error:", 
                 logYamlStart: "Converting to YAML...", logYamlSuccess: "Conversion successful.", logYamlErr: "Aborted due to error.", 
                 logExpStart: "Preparing file:", logExpErr: "Export aborted.", logExpSuccess: "File downloaded:", 
                 logB64Start: "Generating Base64...", logB64Success: "Base64 copied.", logHappStart: "Building HAPP...", logHappSuccess: "HAPP link copied.",
                 logChatUser: "AI Question:", logChatAi: "AI answered.", alertThemeOk: "Theme loaded!", alertThemeErr: "Theme error!",
-                alertResetTheme: "Reset design to default settings?", alertConnect: "Connection error!", alertCopy: "Copied to clipboard!", alertUpdate: "Open GitHub to check for updates?",
-                aiHello: "Hello! I am AI 🤖. Type 'fix' and I will auto-repair your syntax errors!\nYou can also click the 📎 Paperclip to upload a file.", limitErr: "Data size exceeds safety limit.", depthErr: "Nesting limit exceeded.",
-                sharedLessonLoaded: "🌟 Custom shared lesson loaded!", alertCopyLink: "Unique link copied to clipboard!",
-                alertCopyIframe: "Iframe code copied!", fileUploaded: "File loaded:",
-                aiFileGood: "✅ File code is perfect! No syntax errors.", aiFileBad: "❌ Found an error:\n"
-            },
-            zh: {
-                mainTitle: "🧠 终极 JSON/YAML 学院 v26.0", subtitle: "活动亮点，AI 附件和百科全书！",
-                btnSettings: "⚙️ 设置", navTitle: "导航", tabEditor: "💻 编辑器", tabJournal: "📖 手册",
-                tabChat: "🤖 AI 聊天", tabLogs: "📝 日志", lessonsTitle: "课程 (15 步)", 
-                l1: "1. 基本类型", l2: "2. 数组", l3: "3. 数组中的对象", l4: "4. 嵌套", l5: "5. 转义",
-                l6: "6. 复杂配置", l7: "7. 代理路由", l8: "8. Null 值", l9: "9. API 数组", l10: "10. 矩阵", l11: "11. 出站代理", l12: "12. 路由规则", l13: "13. Clash API",
-                examBtn: "14. 🛑 考试", emptyBtn: "15. + 空白", apiTitle: "网络 (API)", onlineMode: "在线模式", 
-                apiDownload: "📥 下载", downloadedAt: "🕒 已下载:", apiUpdate: "🔄 更新", 
-                codeTitle: "📝 输入 (严格 JSON) ↘", resultTitle: "📊 结果 ↘", btnCheck: "⚙️ 检查", btnYaml: "✨ 转 YAML", 
-                btnExpJson: "💾 .json", btnExpYaml: "💾 .yaml", btnExpB64: "🔗 Base64", btnExpHapp: "🚀 HAPP",
-                btnShare: "🔗 分享", btnEmbed: "📦 嵌入", btnUploadFile: "📂 打开",
-                statusReady: "就绪", btnSend: "发送", 
-                logsTitle: "📝 系统日志", clearLogs: "🗑 清除", btnDownloadLogs: "💾 下载 (.txt)", setTheme: "主题:",
-                themeCustom: "自定义", setFont: "字体:", setZoom: "缩放:", customDesignTitle: "🎨 自定义设计",
-                colBg: "背景:", colBox: "面板:", colAccent: "强调:", colText: "文本:",
-                btnExportTheme: "📤 导出", btnImportTheme: "📥 导入", btnResetTheme: "🔄 重置", btnClose: "关闭",
-                appVer: "版本 26.0", btnUpdateApp: "🚀 应用更新",
-                setEditorMode: "窗口高度模式:", modeAuto: "自动", modeManual: "手动",
-                jTitle: "📖 百科全书", j1Title: "1. 简介", j1Desc: "JSON是严格的", j2Title: "2. 结构", j2Desc: "对象与数组", j3Title: "3. 类型", j3Desc: "6种类型",
-                j4Title: "4. 规则", j4Desc: "双引号", j5Title: "5. 转义", j5Desc: "反斜杠", j6Title: "6. 格式化", j6Desc: "压缩",
-                j7Title: "7. YAML", j7Desc: "空格", j8Title: "8. YAML 多行", j8Desc: "| 和 >", j9Title: "9. Base64 & HAPP", j9Desc: "用于代理", j10Title: "10. 分享", j10Desc: "链接",
-                logAppStart: "应用已启动。", logCleared: "日志已清除。", logLangChange: "语言已更改为:",
-                logApiRestore: "API 会话已恢复。", logThemeApply: "自定义颜色已应用。", logThemeExport: "主题已保存。",
-                logThemeImport: "主题已加载。", logThemeImportErr: "主题加载错误:", logSettingsChange: "设置已更改。",
-                logThemeReset: "设计已重置为默认值。", logNav: "已打开选项卡:", logLesson: "已加载课程:", 
-                logNetToggle: "网络模式:", logApiStart: "正在下载:", logApiSuccess: "数据已下载。", logApiErr: "下载失败:", 
-                logParseStart: "正在解析 JSON...", logParseSuccess: "解析成功。", logParseErr: "语法错误:", 
-                logYamlStart: "正在转换为 YAML...", logYamlSuccess: "转换成功。", logYamlErr: "由于错误已中止。", 
-                logExpStart: "正在准备文件:", logExpErr: "导出已中止。", logExpSuccess: "文件已下载:", 
-                logB64Start: "正在生成 Base64...", logB64Success: "Base64 已复制。", logHappStart: "正在构建 HAPP...", logHappSuccess: "HAPP 链接已复制。",
-                logChatUser: "AI 问题:", logChatAi: "AI 已回答。", alertThemeOk: "主题已加载！", alertThemeErr: "主题错误！",
-                alertResetTheme: "将设计重置为默认设置？", alertConnect: "连接错误！", alertCopy: "已复制！", alertUpdate: "打开 GitHub 检查更新？",
-                aiHello: "你好！我是离线 AI 🤖。输入 'fix'，我会自动修复语法错误！", limitErr: "数据过大。", depthErr: "超出嵌套限制。",
-                sharedLessonLoaded: "🌟 自定义分享课程已加载！", alertCopyLink: "唯一链接已复制！", alertCopyIframe: "Iframe 代码已复制！", fileUploaded: "文件已加载:",
-                aiFileGood: "✅ 完美！", aiFileBad: "❌ 错误：\n"
-            },
-            tw: {
-                mainTitle: "🧠 終極 JSON/YAML 學院 v26.0", subtitle: "活動亮點，AI 附件和百科全書！",
-                btnSettings: "⚙️ 設置", navTitle: "導航", tabEditor: "💻 編輯器", tabJournal: "📖 手冊",
-                tabChat: "🤖 AI 聊天", tabLogs: "📝 日誌", lessonsTitle: "課程 (15 步)", 
-                l1: "1. 基本類型", l2: "2. 陣列", l3: "3. 陣列中的對象", l4: "4. 嵌套", l5: "5. 轉義",
-                l6: "6. 複雜配置", l7: "7. 代理路由", l8: "8. Null 值", l9: "9. API 陣列", l10: "10. 矩陣", l11: "11. 出站代理", l12: "12. 路由規則", l13: "13. Clash API",
-                examBtn: "14. 🛑 考試", emptyBtn: "15. + 空白", apiTitle: "網路 (API)", onlineMode: "在線模式", 
-                apiDownload: "📥 下載", downloadedAt: "🕒 已下載:", apiUpdate: "🔄 更新", 
-                codeTitle: "📝 輸入 (嚴格 JSON) ↘", resultTitle: "📊 結果 ↘", btnCheck: "⚙️ 檢查", btnYaml: "✨ 轉 YAML", 
-                btnExpJson: "💾 .json", btnExpYaml: "💾 .yaml", btnExpB64: "🔗 Base64", btnExpHapp: "🚀 HAPP",
-                btnShare: "🔗 分享", btnEmbed: "📦 嵌入", btnUploadFile: "📂 打開",
-                statusReady: "就緒", btnSend: "發送", 
-                logsTitle: "📝 系統日誌", clearLogs: "🗑 清除", btnDownloadLogs: "💾 下載 (.txt)", setTheme: "主題:",
-                themeCustom: "自定義", setFont: "字體:", setZoom: "縮放:", customDesignTitle: "🎨 自定義設計",
-                colBg: "背景:", colBox: "面板:", colAccent: "強調:", colText: "文本:",
-                btnExportTheme: "📤 導出", btnImportTheme: "📥 導入", btnResetTheme: "🔄 重置", btnClose: "關閉",
-                appVer: "版本 26.0", btnUpdateApp: "🚀 應用更新",
-                setEditorMode: "視窗高度模式:", modeAuto: "自動", modeManual: "手動",
-                jTitle: "📖 百科全書", j1Title: "1. 簡介", j1Desc: "JSON是嚴格的", j2Title: "2. 結構", j2Desc: "對象與陣列", j3Title: "3. 類型", j3Desc: "6種類型",
-                j4Title: "4. 規則", j4Desc: "雙引號", j5Title: "5. 轉義", j5Desc: "反斜槓", j6Title: "6. 格式化", j6Desc: "壓縮",
-                j7Title: "7. YAML", j7Desc: "空格", j8Title: "8. YAML 多行", j8Desc: "| 和 >", j9Title: "9. Base64 & HAPP", j9Desc: "用於代理", j10Title: "10. 分享", j10Desc: "鏈接",
-                logAppStart: "應用已啟動。", logCleared: "日誌已清除。", logLangChange: "語言已更改為:",
-                logApiRestore: "API 會話已恢復。", logThemeApply: "自定義顏色已應用。", logThemeExport: "主題已保存。",
-                logThemeImport: "主題已加載。", logThemeImportErr: "主題加載錯誤:", logSettingsChange: "設置已更改。",
-                logThemeReset: "設計已重置為默認值。", logNav: "已打開選項卡:", logLesson: "已加載課程:", 
-                logNetToggle: "網路模式:", logApiStart: "正在下載:", logApiSuccess: "數據已下載。", logApiErr: "下載失敗:", 
-                logParseStart: "正在解析 JSON...", logParseSuccess: "解析成功。", logParseErr: "語法錯誤:", 
-                logYamlStart: "正在轉換為 YAML...", logYamlSuccess: "轉換成功。", logYamlErr: "由於錯誤已中止。", 
-                logExpStart: "正在準備文件:", logExpErr: "導出已中止。", logExpSuccess: "文件已下載:", 
-                logB64Start: "正在生成 Base64...", logB64Success: "Base64 已複製。", logHappStart: "正在構建 HAPP...", logHappSuccess: "HAPP 鏈接已複製。",
-                logChatUser: "AI 問題:", logChatAi: "AI 已回答。", alertThemeOk: "主題已加載！", alertThemeErr: "主題錯誤！",
-                alertResetTheme: "將設計重置為默認設置？", alertConnect: "連接錯誤！", alertCopy: "已複製！", alertUpdate: "打開 GitHub 檢查更新？",
-                aiHello: "你好！我是離線 AI 🤖。輸入 'fix'，我會自動修復語法錯誤！", limitErr: "數據過大。", depthErr: "超出嵌套限制。",
-                sharedLessonLoaded: "🌟 自定義分享課程已加載！", alertCopyLink: "唯一鏈接已複製！", alertCopyIframe: "Iframe 程式碼已複製！", fileUploaded: "文件已加載:",
-                aiFileGood: "✅ 完美！", aiFileBad: "❌ 錯誤：\n"
-            },
-            fa: {
-                mainTitle: "🧠 آکادمی JSON/YAML v26.0", subtitle: "رابط کاربری هوشمند، دکمه آپلود چت و دایره‌المعارف!",
-                btnSettings: "⚙️ تنظیمات", navTitle: "ناوبری", tabEditor: "💻 ویرایشگر", tabJournal: "📖 مجله",
-                tabChat: "🤖 چت هوش مصنوعی", tabLogs: "📝 لاگ‌ها", lessonsTitle: "دروس (15 مرحله)", 
-                l1: "1. انواع پایه", l2: "2. آرایه‌ها", l3: "3. اشیا در آرایه", l4: "4. تو در تو", l5: "5. گریزها",
-                l6: "6. پیکربندی پیچیده", l7: "7. مسیریابی", l8: "8. مقادیر Null", l9: "9. آرایه‌های API", l10: "10. ماتریس‌ها", l11: "11. خروجی‌ها", l12: "12. قوانین", l13: "13. Clash API",
-                examBtn: "14. 🛑 امتحان", emptyBtn: "15. + خالی", apiTitle: "شبکه (API)", onlineMode: "حالت آنلاین", 
-                apiDownload: "📥 دانلود", downloadedAt: "🕒 دانلود شده:", apiUpdate: "🔄 به‌روزرسانی", 
-                codeTitle: "📝 کد (بکشید ↙)", resultTitle: "📊 نتیجه ↙", btnCheck: "⚙️ بررسی", btnYaml: "✨ به YAML", 
-                btnExpJson: "💾 .json", btnExpYaml: "💾 .yaml", btnExpB64: "🔗 Base64", btnExpHapp: "🚀 HAPP",
-                btnShare: "🔗 اشتراک", btnEmbed: "📦 جاسازی", btnUploadFile: "📂 باز کردن",
-                statusReady: "آماده", btnSend: "ارسال", 
-                logsTitle: "📝 لاگ‌های سیستم", clearLogs: "🗑 پاک کردن", btnDownloadLogs: "💾 دانلود (.txt)", setTheme: "قالب:",
-                themeCustom: "سفارشی", setFont: "فونت:", setZoom: "بزرگنمایی:", customDesignTitle: "🎨 طراحی سفارشی",
-                colBg: "پس‌زمینه:", colBox: "پنل‌ها:", colAccent: "رنگ اصلی:", colText: "متن:",
-                btnExportTheme: "📤 صدور", btnImportTheme: "📥 ورود", btnResetTheme: "🔄 بازنشانی", btnClose: "بستن",
-                appVer: "نسخه 26.0", btnUpdateApp: "🚀 به‌روزرسانی‌ها",
-                setEditorMode: "حالت ارتفاع پنجره:", modeAuto: "خودکار", modeManual: "دستی",
-                jTitle: "📖 دایره‌المعارف", j1Title: "1. معرفی", j1Desc: "JSON و YAML", j2Title: "2. ساختار", j2Desc: "اشیا و آرایه‌ها", j3Title: "3. انواع", j3Desc: "6 نوع",
-                j4Title: "4. قوانین", j4Desc: "کوتیشن‌ها", j5Title: "5. گریزها", j5Desc: "بک‌اسلش", j6Title: "6. قالب‌بندی", j6Desc: "فشرده‌سازی",
-                j7Title: "7. YAML", j7Desc: "فاصله‌ها", j8Title: "8. متن چندخطی", j8Desc: "| یا >", j9Title: "9. Base64 & HAPP", j9Desc: "برای پروکسی", j10Title: "10. اشتراک‌گذاری", j10Desc: "لینک‌ها",
-                logAppStart: "برنامه شروع شد.", logCleared: "لاگ‌ها پاک شدند.", logLangChange: "زبان تغییر یافت:",
-                logApiRestore: "جلسه بازیابی شد.", logThemeApply: "رنگ‌ها اعمال شد.", logThemeExport: "قالب ذخیره شد.",
-                logThemeImport: "قالب بارگذاری شد.", logThemeImportErr: "خطای قالب:", logSettingsChange: "تنظیمات تغییر یافت.",
-                logThemeReset: "طراحی بازنشانی شد.", logNav: "تب باز شد:", logLesson: "درس بارگذاری شد:", 
-                logNetToggle: "حالت شبکه:", logApiStart: "دانلود از:", logApiSuccess: "داده‌ها دانلود شدند.", logApiErr: "دانلود ناموفق:", 
-                logParseStart: "پردازش...", logParseSuccess: "پردازش موفق.", logParseErr: "خطا:", 
-                logYamlStart: "تبدیل...", logYamlSuccess: "تبدیل موفق.", logYamlErr: "لغو شد.", 
-                logExpStart: "آماده‌سازی:", logExpErr: "صدور لغو شد.", logExpSuccess: "دانلود شد:", 
-                logB64Start: "تولید Base64...", logB64Success: "کپی شد.", logHappStart: "ساخت HAPP...", logHappSuccess: "لینک کپی شد.",
-                logChatUser: "سوال:", logChatAi: "پاسخ.", alertThemeOk: "قالب بارگذاری شد!", alertThemeErr: "خطای قالب!",
-                alertResetTheme: "بازنشانی؟", alertConnect: "خطای اتصال!", alertCopy: "کپی شد!", alertUpdate: "به‌روزرسانی؟",
-                aiHello: "سلام! دستیار هوش مصنوعی 🤖. بنویس 'fix' تا کد را اصلاح کنم!\nهمچنین روی 📎 کلیک کن تا فایل بفرستی.", limitErr: "حجم داده زیاد.", depthErr: "محدودیت تو در تو.",
-                sharedLessonLoaded: "🌟 درس سفارشی بارگذاری شد!", alertCopyLink: "لینک کپی شد!", alertCopyIframe: "کد Iframe کپی شد!", fileUploaded: "فایل بارگذاری شد:",
-                aiFileGood: "✅ بدون خطا!", aiFileBad: "❌ خطا:\n"
-            },
-            es: {
-                mainTitle: "🧠 Academia JSON/YAML v26.0", subtitle: "¡Resaltado activo, Clip de IA y Enciclopedia!",
-                btnSettings: "⚙️ Ajustes", navTitle: "Navegación", tabEditor: "💻 Editor", tabJournal: "📖 Diario",
-                tabChat: "🤖 Chat de IA", tabLogs: "📝 Logs", lessonsTitle: "Lecciones (15 pasos)", 
-                l1: "1. Tipos Básicos", l2: "2. Matrices", l3: "3. Objetos en Matrices", l4: "4. Anidamiento", l5: "5. Escapes",
-                l6: "6. Config Compleja", l7: "7. Enrutamiento", l8: "8. Valores Null", l9: "9. API Arrays", l10: "10. Matrices",
-                l11: "11. Proxy Outbounds", l12: "12. Reglas Routing", l13: "13. Clash API",
-                examBtn: "14. 🛑 Examen", emptyBtn: "15. + Vacío", apiTitle: "Red (API)", onlineMode: "Modo Online", 
-                apiDownload: "📥 Descargar", downloadedAt: "🕒 Descargado:", apiUpdate: "🔄 Actualizar", 
-                codeTitle: "📝 Código (JSON) ↘", resultTitle: "📊 Resultado ↘", btnCheck: "⚙️ Comprobar", btnYaml: "✨ A YAML", 
-                btnExpJson: "💾 .json", btnExpYaml: "💾 .yaml", btnExpB64: "🔗 Base64", btnExpHapp: "🚀 HAPP",
-                btnShare: "🔗 Compartir", btnEmbed: "📦 Incrustar", btnUploadFile: "📂 Abrir",
-                statusReady: "Listo", btnSend: "Enviar", 
-                logsTitle: "📝 Registros", clearLogs: "🗑 Borrar", btnDownloadLogs: "💾 Descargar (.txt)", setTheme: "Tema:",
-                themeCustom: "Personalizado", setFont: "Fuente:", setZoom: "Escala:", customDesignTitle: "🎨 Diseño",
-                colBg: "Fondo:", colBox: "Paneles:", colAccent: "Acento:", colText: "Texto:",
-                btnExportTheme: "📤 Exportar", btnImportTheme: "📥 Importar", btnResetTheme: "🔄 Restablecer", btnClose: "Cerrar",
-                appVer: "Versión 26.0", btnUpdateApp: "🚀 Actualizaciones",
-                setEditorMode: "Modo Altura:", modeAuto: "Auto", modeManual: "Manual",
-                jTitle: "📖 Enciclopedia", j1Title: "1. Introducción", j1Desc: "JSON es estricto", j2Title: "2. Estructura", j2Desc: "Objetos y matrices", j3Title: "3. Tipos", j3Desc: "6 tipos",
-                j4Title: "4. Reglas", j4Desc: "Comillas", j5Title: "5. Escapes", j5Desc: "Barras", j6Title: "6. Formato", j6Desc: "Minificado",
-                j7Title: "7. YAML", j7Desc: "Espacios", j8Title: "8. YAML Multilínea", j8Desc: "| y >", j9Title: "9. Base64 & HAPP", j9Desc: "Para proxies", j10Title: "10. Compartir", j10Desc: "Enlaces",
-                logAppStart: "App iniciada.", logCleared: "Logs borrados.", logLangChange: "Idioma cambiado a:",
-                logApiRestore: "Sesión API restaurada.", logThemeApply: "Colores aplicados.", logThemeExport: "Tema guardado.",
-                logThemeImport: "Tema cargado.", logThemeImportErr: "Error de tema:", logSettingsChange: "Ajustes cambiados.",
-                logThemeReset: "Diseño restablecido por defecto.", logNav: "Pestaña abierta:", logLesson: "Lección cargada:", 
-                logNetToggle: "Modo de red:", logApiStart: "Descargando de:", logApiSuccess: "Datos descargados.", logApiErr: "Error de descarga:", 
-                logParseStart: "Analizando JSON...", logParseSuccess: "Análisis exitoso.", logParseErr: "Error de sintaxis:", 
-                logYamlStart: "Convirtiendo a YAML...", logYamlSuccess: "Conversión exitosa.", logYamlErr: "Abortado por error.", 
-                logExpStart: "Preparando archivo:", logExpErr: "Exportación abortada.", logExpSuccess: "Archivo descargado:", 
-                logB64Start: "Generando Base64...", logB64Success: "Base64 copiado.", logHappStart: "Construyendo HAPP...", logHappSuccess: "Enlace HAPP copiado.",
-                logChatUser: "Pregunta a IA:", logChatAi: "IA respondió.", alertThemeOk: "¡Tema cargado!", alertThemeErr: "¡Error de tema!",
-                alertResetTheme: "¿Restablecer diseño?", alertConnect: "¡Error de conexión!", alertCopy: "¡Copiado!", alertUpdate: "¿Abrir GitHub?",
-                aiHello: "¡Hola! Soy IA 🤖. Escribe 'fix' para auto-reparar.\n¡Haz clic en 📎 para subir un archivo!", limitErr: "Datos demasiado grandes.", depthErr: "Límite de anidamiento.",
-                sharedLessonLoaded: "🌟 ¡Lección compartida cargada!", alertCopyLink: "¡Enlace copiado!", alertCopyIframe: "¡Código Iframe copiado!", fileUploaded: "Archivo subido:",
-                aiFileGood: "✅ ¡Perfecto!", aiFileBad: "❌ Error:\n"
+                alertResetTheme: "Reset design?", alertConnect: "Connection error!", alertCopy: "Copied!", alertUpdate: "Open GitHub?",
+                aiHello: "Hello! I am AI 🤖. With AI Mode ON and a key, I am a neural net. Without it, I learn offline! Type 'learn: X = Y' to teach me.\nOr type 'fix code'.", limitErr: "Data size exceeds limit.", depthErr: "Nesting limit exceeded.",
+                sharedLessonLoaded: "🌟 Custom lesson loaded!", alertCopyLink: "Link copied!", alertCopyIframe: "Iframe code copied!", fileUploaded: "File loaded:",
+                aiFileGood: "✅ File is perfect!", aiFileBad: "❌ Found an error:\n",
+                fallbackNoUnderstand: "🔵 [Offline AI]: Hmm, I didn't quite get that. Ask me about JSON syntax or type 'fix code'. You can teach me by typing 'learn: X = Y'.",
+                fallbackNo: "🔵 [Offline AI]: I might be wrong since I use basic offline algorithms. Add an API key for max accuracy!",
+                fallbackThanks: "🔵 [Offline AI]: You're welcome! Glad to help."
             }
         };
 
-        function getLoc(key) {
-            const lang = localStorage.getItem('myLang') || 'ru';
-            return (i18n[lang] && i18n[lang][key]) ? i18n[lang][key] : (i18n['en'][key] || key);
-        }
+        i18n.zh = i18n.en; i18n.tw = i18n.en; i18n.fa = i18n.en; i18n.es = i18n.en;
+
+        function getLoc(key) { const lang = memoryGet('myLang', 'ru'); return (i18n[lang] && i18n[lang][key]) ? i18n[lang][key] : (i18n['en'][key] || key); }
 
         function setLang(langCode) {
             document.querySelectorAll('.lang-links a').forEach(a => { a.innerHTML = a.innerText; }); 
             const currentLink = document.querySelector(`.lang-links a[onclick="setLang('${langCode}'); return false;"]`);
             if (currentLink) currentLink.innerHTML = `<b>${currentLink.innerText}</b>`;
 
-            if (langCode === 'fa') document.body.setAttribute('dir', 'rtl');
-            else document.body.setAttribute('dir', 'ltr');
+            if (langCode === 'fa') document.body.setAttribute('dir', 'rtl'); else document.body.setAttribute('dir', 'ltr');
 
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
@@ -716,31 +551,37 @@
             const themeSel = document.getElementById('themeSelect');
             if(themeSel.options[2]) themeSel.options[2].text = getLoc('themeCustom');
             
-            localStorage.setItem('myLang', langCode);
+            memorySet('myLang', langCode);
             writeLog("I18N", "info", `${getLoc('logLangChange')} ${langCode.toUpperCase()}`);
             
-            document.getElementById('chatHistory').innerHTML = '';
-            addChatMsg(getLoc('aiHello'), 'ai');
+            updateKeyStatusUI();
+            
+            const chatHistory = document.getElementById('chatHistory');
+            if(chatHistory && chatHistory.innerHTML === '') { addChatMsg(getLoc('aiHello'), 'ai'); }
         }
 
         let logHistoryArray = [];
 
         function writeLog(action, status, details) {
             const now = new Date();
-            const time = now.toLocaleTimeString('ru-RU') + '.' + String(now.getMilliseconds()).padStart(3, '0');
+            const hh = String(now.getHours()).padStart(2, '0'); const mm = String(now.getMinutes()).padStart(2, '0');
+            const ss = String(now.getSeconds()).padStart(2, '0'); const ms = String(now.getMilliseconds()).padStart(3, '0');
+            const time = `${hh}:${mm}:${ss}.${ms}`;
             const logText = `[${time}] [${status.toUpperCase()}] ${action}: ${details}`;
             logHistoryArray.push(logText);
 
-            const logHTML = `<div class="log-entry log-${status}"><span class="log-time">[${time}]</span> <b>${action}</b>: ${details}</div>`;
             const container = document.getElementById('logsContainer');
-            if(container) container.innerHTML = logHTML + container.innerHTML; 
+            if(container) {
+                const logHTML = `<div class="log-entry log-${status}"><span class="log-time">[${time}]</span> <b>${action}</b>: ${details}</div>`;
+                container.innerHTML = logHTML + container.innerHTML; 
+            }
             console.log(logText);
         }
 
         function clearLogs() { 
-            document.getElementById('logsContainer').innerHTML = ""; 
-            logHistoryArray = [];
-            writeLog("SYSTEM", "info", getLoc('logCleared')); 
+            const container = document.getElementById('logsContainer');
+            if(container) container.innerHTML = ""; 
+            logHistoryArray = []; writeLog("SYSTEM", "info", getLoc('logCleared')); 
         }
 
         function downloadLogsTxt() {
@@ -748,29 +589,20 @@
             const content = logHistoryArray.join('\n');
             const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
             const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = "system_logs.txt";
-            a.click();
-            URL.revokeObjectURL(url);
+            const a = document.createElement('a'); a.href = url; a.download = "system_logs.txt"; a.click(); URL.revokeObjectURL(url);
             writeLog("EXPORT", "success", getLoc('logExpSuccess') + " system_logs.txt");
         }
 
-        const GITHUB_RELEASES_URL = "https://github.com/ТВОЙ_ЛОГИН/ТВОЙ_РЕПОЗИТОРИЙ/releases";
+        const GITHUB_RELEASES_URL = "https://github.com/JINXPIL/json-yaml-ai/releases";
 
         window.onload = function() {
             writeLog("System", "success", "Приложение запущено.");
-            
-            const savedLang = localStorage.getItem('myLang') || 'ru';
-            setLang(savedLang);
-            setupDragAndDrop();
+            const savedLang = memoryGet('myLang', 'ru'); setLang(savedLang);
+            setupGlobalDragAndDrop();
 
             const urlParams = new URLSearchParams(window.location.search);
             const isEmbed = urlParams.get('embed') === 'true';
-            if (isEmbed) {
-                document.body.classList.add('embed-mode');
-                writeLog("EMBED", "info", "Активирован режим Iframe");
-            }
+            if (isEmbed) { document.body.classList.add('embed-mode'); writeLog("EMBED", "info", "Активирован режим Iframe"); }
 
             const sharedCode = urlParams.get('code');
             if (sharedCode) {
@@ -779,137 +611,167 @@
                     document.getElementById('jsonInput').value = decodedText;
                     document.getElementById('result-message').innerText = getLoc('sharedLessonLoaded');
                     document.getElementById('result-message').style.color = "var(--yaml-text)";
-                    writeLog("SHARE", "success", "Загружен кастомный код из URL.");
-                    checkJson();
-                } catch(e) {
-                    writeLog("SHARE", "error", "Не удалось расшифровать код из URL.");
-                }
+                    writeLog("SHARE", "success", "Загружен кастомный код из URL."); checkJson();
+                } catch(e) { writeLog("SHARE", "error", "Не удалось расшифровать код из URL."); }
             } else {
-                const savedJson = localStorage.getItem('mySavedJson');
-                if (savedJson) document.getElementById('jsonInput').value = savedJson;
-                else loadLesson(1);
+                const savedJson = memoryGet('mySavedJson');
+                if (savedJson) document.getElementById('jsonInput').value = savedJson; else loadLesson(1);
             }
             
-            document.getElementById('themeSelect').value = localStorage.getItem('myTheme') || 'dark';
-            document.getElementById('fontSizeScale').value = localStorage.getItem('myFontSize') || 15;
-            document.getElementById('appZoomScale').value = localStorage.getItem('myZoom') || 1;
-            document.getElementById('editorSizeMode').value = localStorage.getItem('myEditorMode') || 'manual';
+            document.getElementById('themeSelect').value = memoryGet('myTheme', 'dark');
+            document.getElementById('fontSizeScale').value = memoryGet('myFontSize', 15);
+            document.getElementById('appZoomScale').value = memoryGet('myZoom', 1);
+            document.getElementById('editorSizeMode').value = memoryGet('myEditorMode', 'manual');
+            document.getElementById('deviceMode').value = memoryGet('myDevMode', 'pc');
+            document.getElementById('aiProvider').value = memoryGet('aiProvider', 'openai');
+            document.getElementById('aiOnlineToggle').checked = (memoryGet('aiOnlineToggle', 'false') === 'true');
+            
+            updateKeyStatusUI();
             applySettings(); 
 
-            if(localStorage.getItem('myTheme') === 'custom' && localStorage.getItem('customThemeData')) {
-                loadCustomColors(JSON.parse(localStorage.getItem('customThemeData')));
-            }
+            if(memoryGet('myTheme') === 'custom' && memoryGet('customThemeData')) { loadCustomColors(JSON.parse(memoryGet('customThemeData'))); }
 
-            const lastSync = localStorage.getItem('myLastSyncTime');
+            const lastSync = memoryGet('myLastSyncTime');
             if (lastSync) {
-                document.getElementById('syncBlock').style.display = 'flex';
-                document.getElementById('syncTime').innerText = lastSync;
-                document.getElementById('apiUrl').value = localStorage.getItem('myLastUrl') || "https://jsonplaceholder.typicode.com/users/1";
+                document.getElementById('syncBlock').style.display = 'flex'; document.getElementById('syncTime').innerText = lastSync;
+                document.getElementById('apiUrl').value = memoryGet('myLastUrl', "https://jsonplaceholder.typicode.com/users/1");
                 writeLog("API", "info", getLoc('logApiRestore') + " " + lastSync);
             }
+            
+            const chatHistory = document.getElementById('chatHistory');
+            if(chatHistory && chatHistory.innerHTML === '') { addChatMsg(getLoc('aiHello'), 'ai'); }
         }
 
-        // --- DRAG & DROP СИСТЕМА ---
-        function setupDragAndDrop() {
-            const editorZone = document.getElementById('view-editor');
-            const chatZone = document.getElementById('view-chat');
+        // --- УПРАВЛЕНИЕ AI API KEY И PROVIDER ---
+        function updateKeyStatusUI() {
+            const hasKey = memoryGet('aiApiKey', '');
+            const statusEl = document.getElementById('keyStatus');
+            const inputEl = document.getElementById('aiApiKey');
+            
+            if (hasKey) {
+                inputEl.value = hasKey; 
+                statusEl.innerText = getLoc('keyActive');
+                statusEl.style.color = "var(--success-color)";
+            } else {
+                inputEl.value = "";
+                statusEl.innerText = getLoc('keyNotSet');
+                statusEl.style.color = "var(--error-color)";
+            }
+        }
 
-            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-                editorZone.addEventListener(eventName, preventDefaults, false);
-                chatZone.addEventListener(eventName, preventDefaults, false);
+        function saveApiKey() {
+            const val = document.getElementById('aiApiKey').value.trim();
+            if (val) {
+                memorySet('aiApiKey', val);
+                updateKeyStatusUI();
+                writeLog("AI", "success", "AI API ключ привязан.");
+                alert(getLoc('keyLinked'));
+            } else {
+                deleteApiKey();
+            }
+        }
+
+        function deleteApiKey() {
+            memoryRemove('aiApiKey');
+            updateKeyStatusUI();
+            writeLog("AI", "info", "AI API ключ удален.");
+        }
+
+        // --- ГЛОБАЛЬНЫЙ БЕЗОПАСНЫЙ DRAG & DROP ---
+        function setupGlobalDragAndDrop() {
+            const dropZone = document.body;
+            dropZone.addEventListener('dragover', (e) => {
+                e.preventDefault(); e.stopPropagation();
+                if (!document.body.classList.contains('drag-active')) document.body.classList.add('drag-active');
             });
-
-            function preventDefaults(e) { e.preventDefault(); e.stopPropagation(); }
-
-            ['dragenter', 'dragover'].forEach(eventName => {
-                editorZone.addEventListener(eventName, () => document.querySelector('.box-left').classList.add('drag-over'), false);
-                chatZone.addEventListener(eventName, () => chatZone.classList.add('drag-over'), false);
+            dropZone.addEventListener('dragleave', (e) => {
+                e.preventDefault(); e.stopPropagation();
+                if (e.clientX === 0 || e.clientY === 0) document.body.classList.remove('drag-active');
             });
-
-            ['dragleave', 'drop'].forEach(eventName => {
-                editorZone.addEventListener(eventName, () => document.querySelector('.box-left').classList.remove('drag-over'), false);
-                chatZone.addEventListener(eventName, () => chatZone.classList.remove('drag-over'), false);
+            dropZone.addEventListener('drop', (e) => {
+                e.preventDefault(); e.stopPropagation();
+                document.body.classList.remove('drag-active');
+                let files = e.dataTransfer.files;
+                if(files.length > 0) {
+                    const target = document.getElementById('view-chat').classList.contains('active') ? 'chat' : 'editor';
+                    processFile(files[0], target);
+                }
             });
-
-            editorZone.addEventListener('drop', (e) => handleDrop(e, 'editor'), false);
-            chatZone.addEventListener('drop', (e) => handleDrop(e, 'chat'), false);
         }
 
-        function handleDrop(e, target) {
-            let files = e.dataTransfer.files;
-            if(files.length > 0) processFile(files[0], target);
-        }
-
-        function handleFileUpload(e, target) {
-            if(e.target.files.length > 0) processFile(e.target.files[0], target);
-            e.target.value = ''; // Сброс инпута
-        }
+        function handleFileUpload(e, target) { if(e.target.files.length > 0) processFile(e.target.files[0], target); e.target.value = ''; }
 
         function processFile(file, target) {
-            if (file.size > MAX_DATA_LENGTH) {
-                alert(getLoc('limitErr')); writeLog("FILE", "error", "Файл слишком большой."); return;
-            }
-            let reader = new FileReader();
-            reader.readAsText(file);
+            const MAX_DATA_LENGTH = 1500000;
+            if (file.size > MAX_DATA_LENGTH) { alert(getLoc('limitErr')); writeLog("FILE", "error", "Файл слишком большой."); return; }
+            let reader = new FileReader(); reader.readAsText(file);
             reader.onload = function() {
                 if(target === 'editor') {
-                    document.getElementById('jsonInput').value = reader.result;
-                    autoSave(); adjustTextareaHeight();
-                    // Сброс активного урока, так как мы загрузили свой файл
+                    document.getElementById('jsonInput').value = reader.result; autoSave(); 
                     document.querySelectorAll('.lesson-group button').forEach(b => b.classList.remove('active'));
                     document.getElementById('result-message').innerText = `${getLoc('fileUploaded')} ${file.name}`;
-                    writeLog("FILE", "success", `${getLoc('fileUploaded')} ${file.name}`);
-                    checkJson();
+                    writeLog("FILE", "success", `${getLoc('fileUploaded')} ${file.name}`); checkJson(); 
                 } else if(target === 'chat') {
-                    addChatMsg(`${getLoc('fileUploaded')} ${file.name}`, 'user');
-                    writeLog("FILE", "info", `Файл передан в ИИ: ${file.name}`);
+                    addChatMsg(`${getLoc('fileUploaded')} ${file.name}`, 'user'); writeLog("FILE", "info", `Файл передан в ИИ: ${file.name}`);
                     setTimeout(() => {
-                        try {
-                            JSON.parse(reader.result);
-                            addChatMsg(getLoc('aiFileGood'), 'ai');
+                        try { JSON.parse(reader.result); addChatMsg(getLoc('aiFileGood'), 'ai');
                         } catch(e) {
                             const hint = getSmartHint(reader.result);
-                            addChatMsg(getLoc('aiFileBad') + e.message + "\n\n💡 " + hint + "\n(Я скопировал код в редактор. Напиши 'fix', чтобы я его исправил!)", 'ai');
-                            document.getElementById('jsonInput').value = reader.result;
-                            autoSave();
+                            addChatMsg(getLoc('aiFileBad') + e.message + "\n\n💡 " + hint + "\n(Напиши 'исправь', чтобы я его починил!)", 'ai');
+                            document.getElementById('jsonInput').value = reader.result; autoSave();
                         }
                     }, 600);
                 }
             };
         }
 
-        function checkAppUpdates() {
-            if(confirm(getLoc('alertUpdate'))) window.open(GITHUB_RELEASES_URL, "_blank");
+        async function checkAppUpdates() {
+            writeLog("UPDATE", "info", "Проверка версий на GitHub...");
+            try {
+                const btn = document.querySelector('.btn-update-app');
+                const oldText = btn.innerText;
+                btn.innerText = "⏳...";
+                
+                const res = await fetch(`https://api.github.com/repos/${GITHUB_RELEASES_URL.split('/releases')[0].split('github.com/')[1]}/releases/latest`);
+                btn.innerText = oldText;
+                
+                if (!res.ok) throw new Error("GitHub API Error");
+                const data = await res.json();
+                
+                const latestVersion = data.tag_name.replace(/[^0-9.]/g, ''); 
+                const CURRENT_VERSION = "33.0";
+                
+                if (parseFloat(latestVersion) > parseFloat(CURRENT_VERSION)) {
+                    writeLog("UPDATE", "success", `New version found: v${latestVersion}`);
+                    if (confirm(`${getLoc('alertNewUpdate')} v${latestVersion}!\n\n${data.name}\n\n${getLoc('alertUpdate')}`)) {
+                        window.open(`https://github.com/${GITHUB_RELEASES_URL.split('/releases')[0].split('github.com/')[1]}/releases/latest`, "_blank");
+                    }
+                } else {
+                    writeLog("UPDATE", "info", "App is up to date.");
+                    alert(getLoc('alertNoUpdate'));
+                }
+            } catch(e) {
+                writeLog("UPDATE", "error", e.message);
+                if(confirm(getLoc('alertUpdate'))) {
+                    window.open(GITHUB_RELEASES_URL, "_blank");
+                }
+            }
         }
 
         function applyCustomColors() {
-            const bg = document.getElementById('colBg').value;
-            const box = document.getElementById('colBox').value;
-            const accent = document.getElementById('colAccent').value;
-            const txt = document.getElementById('colText').value;
-
+            const bg = document.getElementById('colBg').value; const box = document.getElementById('colBox').value;
+            const accent = document.getElementById('colAccent').value; const txt = document.getElementById('colText').value;
             document.body.style.setProperty('--bg-color', bg); document.body.style.setProperty('--box-bg', box);
             document.body.style.setProperty('--editor-text', accent); document.body.style.setProperty('--sidebar-header', accent); document.body.style.setProperty('--text-color', txt);
-
-            document.getElementById('themeSelect').value = 'custom'; document.body.classList.remove('light-theme');
-            localStorage.setItem('myTheme', 'custom');
-
-            const themeData = { bg, box, accent, txt };
-            localStorage.setItem('customThemeData', JSON.stringify(themeData));
-            writeLog("UI", "info", getLoc('logThemeApply'));
+            document.getElementById('themeSelect').value = 'custom'; document.body.classList.remove('light-theme'); memorySet('myTheme', 'custom');
+            const themeData = { bg, box, accent, txt }; memorySet('customThemeData', JSON.stringify(themeData)); writeLog("UI", "info", getLoc('logThemeApply'));
         }
 
-        function loadCustomColors(data) {
-            document.getElementById('colBg').value = data.bg; document.getElementById('colBox').value = data.box;
-            document.getElementById('colAccent').value = data.accent; document.getElementById('colText').value = data.txt;
-            applyCustomColors();
-        }
+        function loadCustomColors(data) { document.getElementById('colBg').value = data.bg; document.getElementById('colBox').value = data.box; document.getElementById('colAccent').value = data.accent; document.getElementById('colText').value = data.txt; applyCustomColors(); }
 
         function exportTheme() {
-            const data = localStorage.getItem('customThemeData') || "{}";
-            const blob = new Blob([data], { type: "application/json" }); const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob); a.download = "my_custom_theme.json"; a.click();
-            writeLog("EXPORT", "success", getLoc('logThemeExport'));
+            const data = memoryGet('customThemeData', "{}"); const blob = new Blob([data], { type: "application/json" });
+            const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = "my_custom_theme.json"; a.click(); writeLog("EXPORT", "success", getLoc('logThemeExport'));
         }
 
         function importTheme(event) {
@@ -918,19 +780,15 @@
             reader.onload = function(e) {
                 try {
                     const data = JSON.parse(e.target.result);
-                    if(data.bg && data.box) { loadCustomColors(data); alert(getLoc('alertThemeOk')); writeLog("IMPORT", "success", getLoc('logThemeImport')); } 
-                    else throw new Error("Format error");
+                    if(data.bg && data.box) { loadCustomColors(data); alert(getLoc('alertThemeOk')); writeLog("IMPORT", "success", getLoc('logThemeImport')); } else throw new Error("Format error");
                 } catch(err) { alert(getLoc('alertThemeErr')); writeLog("IMPORT", "error", getLoc('logThemeImportErr') + " " + err.message); }
             }; reader.readAsText(file);
         }
 
         function resetTheme() {
             if(!confirm(getLoc('alertResetTheme'))) return;
-            document.getElementById('colBg').value = "#1a1a24"; document.getElementById('colBox').value = "#232332";
-            document.getElementById('colAccent').value = "#00d2ff"; document.getElementById('colText').value = "#e0e0e0";
-            document.getElementById('themeSelect').value = 'dark';
-            localStorage.removeItem('customThemeData'); localStorage.removeItem('myTheme');
-            applySettings(); writeLog("UI", "success", getLoc('logThemeReset'));
+            document.getElementById('colBg').value = "#1a1a24"; document.getElementById('colBox').value = "#232332"; document.getElementById('colAccent').value = "#00d2ff"; document.getElementById('colText').value = "#e0e0e0";
+            document.getElementById('themeSelect').value = 'dark'; memoryRemove('customThemeData'); memoryRemove('myTheme'); applySettings(); writeLog("UI", "success", getLoc('logThemeReset'));
         }
 
         function openSettings() { document.getElementById('settingsModal').style.display = 'flex'; }
@@ -939,29 +797,33 @@
         function applySettings() {
             const theme = document.getElementById('themeSelect').value; const fontSize = document.getElementById('fontSizeScale').value;
             const zoom = document.getElementById('appZoomScale').value; const editorMode = document.getElementById('editorSizeMode').value;
+            const devMode = document.getElementById('deviceMode').value;
+            const aiProvider = document.getElementById('aiProvider').value;
+            const aiOnlineToggle = document.getElementById('aiOnlineToggle').checked;
             
-            if (theme !== 'custom') {
-                document.body.style.removeProperty('--bg-color'); document.body.style.removeProperty('--box-bg');
-                document.body.style.removeProperty('--editor-text'); document.body.style.removeProperty('--sidebar-header'); document.body.style.removeProperty('--text-color');
-            }
-
+            if (theme !== 'custom') { document.body.style.removeProperty('--bg-color'); document.body.style.removeProperty('--box-bg'); document.body.style.removeProperty('--editor-text'); document.body.style.removeProperty('--sidebar-header'); document.body.style.removeProperty('--text-color'); }
             if (theme === 'light') document.body.classList.add('light-theme'); else document.body.classList.remove('light-theme');
-            if (theme === 'custom' && localStorage.getItem('customThemeData')) loadCustomColors(JSON.parse(localStorage.getItem('customThemeData')));
+            if (theme === 'custom' && memoryGet('customThemeData')) loadCustomColors(JSON.parse(memoryGet('customThemeData')));
             
             document.documentElement.style.setProperty('--main-font-size', fontSize + 'px'); document.documentElement.style.setProperty('--app-scale', zoom);
-            
             if (editorMode === 'auto') document.body.classList.add('auto-height-mode'); else document.body.classList.remove('auto-height-mode');
             
-            localStorage.setItem('myTheme', theme); localStorage.setItem('myFontSize', fontSize); 
-            localStorage.setItem('myZoom', zoom); localStorage.setItem('myEditorMode', editorMode);
+            document.body.classList.remove('force-mobile', 'res-1920', 'res-1366', 'res-1280');
+            if (devMode === 'mobile') document.body.classList.add('force-mobile');
+            
+            memorySet('myTheme', theme); memorySet('myFontSize', fontSize); memorySet('myZoom', zoom); 
+            memorySet('myEditorMode', editorMode); memorySet('myDevMode', devMode); 
+            memorySet('aiProvider', aiProvider); memorySet('aiOnlineToggle', aiOnlineToggle);
+            
             writeLog("UI", "info", getLoc('logSettingsChange')); adjustTextareaHeight();
         }
 
         function adjustTextareaHeight() {
             if (document.getElementById('editorSizeMode').value !== 'auto') return;
             const ta = document.getElementById('jsonInput'); const pre = document.getElementById('outputBox');
-            ta.style.height = 'auto'; ta.style.height = (ta.scrollHeight) + 'px';
-            pre.style.height = 'auto'; pre.style.height = (pre.scrollHeight) + 'px';
+            if(!ta || !pre) return;
+            ta.style.height = '10px'; pre.style.height = '10px';
+            ta.style.height = (ta.scrollHeight) + 'px'; pre.style.height = (pre.scrollHeight) + 'px';
         }
 
         function switchView(viewName) {
@@ -970,10 +832,10 @@
             document.getElementById('view-' + viewName).classList.add('active');
             document.getElementById('tab-' + viewName).classList.add('active');
             writeLog("NAV", "info", getLoc('logNav') + " " + viewName.toUpperCase());
-            if (viewName === 'editor') setTimeout(adjustTextareaHeight, 10);
+            if (viewName === 'editor') setTimeout(adjustTextareaHeight, 50);
         }
 
-        function autoSave() { localStorage.setItem('mySavedJson', document.getElementById('jsonInput').value); }
+        function autoSave() { memorySet('mySavedJson', document.getElementById('jsonInput').value); }
 
         const lessonsData = {
             1: `{\n  "string": "Текст строго в двойных кавычках",\n  "number": 42,\n  "boolean_true": true\n}`,
@@ -994,7 +856,6 @@
         };
 
         function loadLesson(num) {
-            // Подсветка активного урока
             document.querySelectorAll('.lesson-group button').forEach(b => b.classList.remove('active'));
             const activeBtn = document.getElementById('lesson-btn-' + num);
             if(activeBtn) activeBtn.classList.add('active');
@@ -1027,7 +888,7 @@
                 const now = new Date().toLocaleString();
                 document.getElementById('syncBlock').style.display = 'flex';
                 document.getElementById('syncTime').innerText = now;
-                localStorage.setItem('myLastSyncTime', now); localStorage.setItem('myLastUrl', url);
+                memorySet('myLastSyncTime', now); memorySet('myLastUrl', url);
                 writeLog("API", "success", getLoc('logApiSuccess') + " (" + JSON.stringify(data).length + " bytes)");
                 checkJson(); switchView('editor'); adjustTextareaHeight();
             } catch (e) { alert(getLoc('alertConnect')); writeLog("API", "error", getLoc('logApiErr') + " " + e.message); }
@@ -1045,7 +906,7 @@
 
         function checkLimits() {
             const raw = document.getElementById('jsonInput').value;
-            if (raw.length > MAX_DATA_LENGTH) { alert(getLoc('limitErr')); writeLog("SECURITY", "error", "Data size exceeded."); return false; }
+            if (raw.length > MAX_DATA_LENGTH) { alert(getLoc('limitErr')); writeLog("SECURITY", "error", "Data size exceeded limit."); return false; }
             return raw;
         }
 
@@ -1062,7 +923,8 @@
             } catch (e) {
                 out.innerText = e.message; out.style.color = msg.style.color = "var(--error-color)";
                 msg.innerText = "❌ Error!";
-                hint.innerText = "💡 " + getSmartHint(raw); hint.style.display = 'block';
+                const smartHint = getSmartHint(raw);
+                hint.innerText = "💡 " + smartHint; hint.style.display = 'block';
                 writeLog("PARSER", "error", getLoc('logParseErr') + " " + e.message);
                 adjustTextareaHeight(); return false;
             }
@@ -1119,7 +981,7 @@
             const textArea = document.createElement("textarea"); textArea.value = text; textArea.style.position = "fixed"; 
             document.body.appendChild(textArea); textArea.focus(); textArea.select();
             try { document.execCommand('copy'); alert("✅ " + successMessage); } 
-            catch (err) { alert("❌ Ошибка копирования."); } document.body.removeChild(textArea);
+            catch (err) { alert("❌ Ошибка копирования. Буфер недоступен."); } document.body.removeChild(textArea);
         }
 
         function generateBase64() {
@@ -1158,65 +1020,150 @@
         function handleEnter(e) { if(e.key === 'Enter') sendChatMessage(); }
         function addChatMsg(text, sender) {
             const chat = document.getElementById('chatHistory');
-            const div = document.createElement('div'); div.className = `chat-msg msg-${sender}`; div.innerText = text;
+            const div = document.createElement('div'); div.className = `chat-msg msg-${sender}`; div.innerHTML = text.replace(/\n/g, "<br>");
             chat.appendChild(div); chat.scrollTop = chat.scrollHeight; 
         }
 
-        // --- УМНЫЙ ИИ-АВТОФИКСЕР ---
         function attemptFixJson(badJson) {
-            let fixed = badJson;
-            fixed = fixed.replace(/\/\/.*$/gm, ''); 
-            fixed = fixed.replace(/'/g, '"'); 
-            fixed = fixed.replace(/([{,]\s*)([a-zA-Z0-9_]+)(\s*:)/g, '$1"$2"$3'); 
-            fixed = fixed.replace(/,\s*([}\]])/g, '$1'); 
-            try { return JSON.stringify(JSON.parse(fixed), null, 2); } 
-            catch(e) { return null; }
+            let fixed = badJson.replace(/\/\/.*$/gm, '').replace(/'/g, '"').replace(/([{,]\s*)([a-zA-Z0-9_]+)(\s*:)/g, '$1"$2"$3').replace(/,\s*([}\]])/g, '$1'); 
+            try { return JSON.stringify(JSON.parse(fixed), null, 2); } catch(e) { return null; }
         }
 
-        function getAiResponse(q) {
-            const lang = localStorage.getItem('myLang') || 'ru';
-            q = q.toLowerCase();
-            
-            if (q.includes("проверь") || q.includes("ошибк") || q.includes("check") || q.includes("error")) {
-                const currentCode = document.getElementById('jsonInput').value.trim();
-                if (!currentCode) return lang === 'ru' ? "Твой редактор пуст." : "Editor is empty.";
-                try {
-                    JSON.parse(currentCode); return lang === 'ru' ? "✅ Твой код идеален! Ошибок синтаксиса нет." : "✅ Your code is perfect!";
-                } catch(e) {
-                    const hint = getSmartHint(currentCode);
-                    return (lang === 'ru' ? "❌ Я нашел ошибку:\n" : "❌ Found an error:\n") + e.message + "\n\n💡 " + hint;
+        // ==========================================
+        // 🧠 СИСТЕМА ИСКУССТВЕННОГО ИНТЕЛЛЕКТА (UNIVERSAL AI BRIDGE)
+        // ==========================================
+
+        let localAiBrain = JSON.parse(memoryGet('ai_brain', '{}'));
+
+        async function fetchAiApi(prompt, codeContext) {
+            const provider = memoryGet('aiProvider', 'openai');
+            const apiKey = memoryGet('aiApiKey', '');
+            if (!apiKey) return null; 
+
+            let url = ''; let model = ''; let headers = { 'Content-Type': 'application/json' }; let body = {};
+            const systemPrompt = "You are an expert in JSON, YAML, and proxy routing config. User's current editor code:\n" + codeContext;
+
+            try {
+                if (provider === 'openai' || provider.startsWith('deepseek') || provider === 'openrouter' || provider === 'groq') {
+                    if (provider === 'openai') { url = 'https://api.openai.com/v1/chat/completions'; model = 'gpt-4o-mini'; headers['Authorization'] = `Bearer ${apiKey}`; } 
+                    else if (provider.startsWith('deepseek')) { url = 'https://api.deepseek.com/chat/completions'; model = provider === 'deepseek-pro' ? 'deepseek-reasoner' : 'deepseek-chat'; headers['Authorization'] = `Bearer ${apiKey}`; } 
+                    else if (provider === 'openrouter') { url = 'https://openrouter.ai/api/v1/chat/completions'; model = 'qwen/qwen-2.5-7b-instruct:free'; headers['Authorization'] = `Bearer ${apiKey}`; headers['HTTP-Referer'] = window.location.href; headers['X-Title'] = 'JSON Academy'; } 
+                    else if (provider === 'groq') { url = 'https://api.groq.com/openai/v1/chat/completions'; model = 'llama3-8b-8192'; headers['Authorization'] = `Bearer ${apiKey}`; }
+
+                    body = { model: model, messages: [{role: "system", content: systemPrompt}, {role: "user", content: prompt}] };
+
+                } else if (provider === 'anthropic') {
+                    url = 'https://api.anthropic.com/v1/messages'; headers['x-api-key'] = apiKey; headers['anthropic-version'] = '2023-06-01'; headers['anthropic-dangerous-direct-browser-access'] = 'true'; 
+                    body = { model: 'claude-3-haiku-20240307', max_tokens: 2048, system: systemPrompt, messages: [{role: "user", content: prompt}] };
+
+                } else if (provider === 'gemini') {
+                    url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+                    body = { systemInstruction: {parts:[{text:systemPrompt}]}, contents: [{parts:[{text:prompt}]}] };
+                }
+
+                const response = await fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(body) });
+                
+                if(!response.ok) {
+                    const errText = await response.text();
+                    if(response.status === 402) throw new Error(`[402] Недостаточно средств на балансе API (Insufficient Balance).`);
+                    throw new Error(`[${response.status}] ${errText}`);
+                }
+                
+                const data = await response.json();
+                let answerText = "";
+
+                if (provider === 'anthropic') answerText = data.content[0].text;
+                else if (provider === 'gemini') answerText = data.candidates[0].content.parts[0].text;
+                else answerText = data.choices[0].message.content;
+
+                return `🟢 [${provider.toUpperCase()}]:\n` + answerText;
+
+            } catch (e) { console.error(e); writeLog("AI", "error", `API Error: ${e.message}`); return `🔴 [API Error]: ${e.message}`; }
+        }
+
+        // ==============================================
+        // ФИКС ОФЛАЙН ИИ (РЕАКЦИЯ НА "НЕТ", "ОШИБКА" И ПР.)
+        // ==============================================
+        async function getAiResponse(q) {
+            const lang = memoryGet('myLang', 'ru');
+            const lowerQ = q.toLowerCase();
+            const currentCode = document.getElementById('jsonInput').value.trim();
+
+            const learnMatch = lowerQ.match(/^(запомни|learn):\s*(.+?)\s*=\s*(.+)$/i);
+            if (learnMatch) {
+                const trigger = learnMatch[2].trim(); const responseText = learnMatch[3].trim();
+                localAiBrain[trigger] = responseText; memorySet('ai_brain', JSON.stringify(localAiBrain));
+                writeLog("AI", "success", `Обучен правилу: ${trigger}`);
+                return lang === 'ru' ? `✅ Отлично! Я запомнил. Если спросишь "${trigger}", я отвечу "${responseText}".` : `✅ Got it! I learned: ${trigger} -> ${responseText}.`;
+            }
+
+            for (let trigger in localAiBrain) {
+                if (lowerQ.includes(trigger)) {
+                    writeLog("AI", "info", `Использовано локальное знание: ${trigger}`);
+                    return `🔵 [Offline AI]: ` + localAiBrain[trigger];
                 }
             }
 
-            if (q.includes("исправь") || q.includes("почини") || q.includes("fix") || q.includes("repair")) {
-                const currentCode = document.getElementById('jsonInput').value.trim();
+            const isOnline = document.getElementById('aiOnlineToggle').checked;
+            const hasKey = memoryGet('aiApiKey', '');
+            if (isOnline && hasKey && navigator.onLine) {
+                writeLog("AI", "info", "Запрос к AI API...");
+                const aiResponse = await fetchAiApi(q, currentCode);
+                if (aiResponse) { writeLog("AI", "success", "Ответ от API получен."); return aiResponse; }
+            }
+
+            // ОФЛАЙН РЕЖИМ (ФИКС РЕАКЦИЙ)
+            if (lowerQ.includes("проверь") || lowerQ.includes("check")) {
+                if (!currentCode) return lang === 'ru' ? "🔵 [Offline AI]: Твой редактор пуст." : "🔵 [Offline AI]: Editor is empty.";
+                try { JSON.parse(currentCode); return lang === 'ru' ? "🔵 [Offline AI]: ✅ Код идеален!" : "🔵 [Offline AI]: ✅ Code is perfect!"; } 
+                catch(e) { const hint = getSmartHint(currentCode); return (lang === 'ru' ? "🔵 [Offline AI]: ❌ Нашел ошибку:\n" : "🔵 [Offline AI]: ❌ Found an error:\n") + e.message + "\n\n💡 " + hint; }
+            }
+
+            if (lowerQ.includes("ошибк") || lowerQ.includes("error")) {
+                try { JSON.parse(currentCode); return lang === 'ru' ? "🔵 [Offline AI]: Я не вижу ошибок, твой код идеален!" : "🔵 [Offline AI]: I see no errors, your code is perfect!"; } 
+                catch(e) { const hint = getSmartHint(currentCode); return (lang === 'ru' ? "🔵 [Offline AI]: В твоем коде есть ошибка:\n" : "🔵 [Offline AI]: Your code has an error:\n") + e.message + "\n\n💡 " + hint; }
+            }
+
+            if (lowerQ.includes("исправь") || lowerQ.includes("почини") || lowerQ.includes("fix") || lowerQ.includes("repair")) {
                 const fixed = attemptFixJson(currentCode);
-                if (fixed) {
-                    document.getElementById('jsonInput').value = fixed; autoSave(); checkJson();
-                    return lang === 'ru' ? "🛠️ Я починил твой код и вставил его в редактор!" : "🛠️ I fixed your code!";
-                } else return lang === 'ru' ? "Ошибки слишком сложные 😔. Проверь скобки { }." : "Errors are too complex to auto-fix.";
+                if (fixed) { document.getElementById('jsonInput').value = fixed; autoSave(); checkJson(); return lang === 'ru' ? "🔵 [Offline AI]: 🛠️ Я починил код и вставил его в редактор!" : "🔵 [Offline AI]: 🛠️ Code fixed!"; } 
+                else return lang === 'ru' ? "🔵 [Offline AI]: Ошибки слишком сложные 😔. Проверь скобки { }." : "🔵 [Offline AI]: Errors are too complex to auto-fix.";
+            }
+
+            if (lowerQ === "нет" || lowerQ.includes("неправда") || lowerQ.includes("не работает") || lowerQ === "не" || lowerQ === "no") {
+                return getLoc('fallbackNo');
+            }
+
+            if (lowerQ.includes("спасибо") || lowerQ.includes("ок") || lowerQ.includes("понял") || lowerQ.includes("thanks")) {
+                return getLoc('fallbackThanks');
             }
 
             if (lang === 'ru') {
-                if(q.includes("привет")) return "Привет! Задавай любые вопросы про JSON, YAML или ошибки в коде.";
-                if(q.includes("совет") || q.includes("экзамен") || q.includes("урок 14")) return "Совет для Экзамена (Урок 14):\n1. Удали комментарии.\n2. Ключ name - в двойные кавычки.\n3. Одинарные кавычки замени на двойные.\n4. Удали висячую запятую в массиве.\n5. Удали запятую после theme.";
-                return "Хмм, пока я знаю ответы про: запятые, кавычки, YAML, Base64, HAPP. Либо напиши 'исправь код', и я сам всё починю!";
+                if(lowerQ.includes("привет")) return "🔵 [Offline AI]: Привет! Задавай любые вопросы про JSON, YAML или ошибки в коде.";
+                if(lowerQ.includes("совет") || lowerQ.includes("экзамен") || lowerQ.includes("урок 14")) return "🔵 [Offline AI]: Совет для Экзамена (Урок 14):\n1. Удали комментарии.\n2. Ключ name - в двойные кавычки.\n3. Одинарные кавычки замени на двойные.\n4. Удали висячую запятую в массиве.\n5. Удали запятую после theme.";
+                return getLoc('fallbackNoUnderstand');
             } else {
-                if(q.includes("hello") || q.includes("hi")) return "Hello! Ask me about JSON, YAML, or coding errors.";
-                if(q.includes("advice") || q.includes("exam") || q.includes("lesson 14")) return "Exam Advice (Lesson 14):\n1. Remove comments.\n2. Put 'name' in double quotes.\n3. Replace single quotes with double.\n4. Remove trailing commas.";
-                return "I can answer questions about commas, quotes, YAML, Base64, HAPP. Or type 'fix code' and I will auto-repair your JSON!";
+                if(lowerQ.includes("hello") || lowerQ.includes("hi")) return "🔵 [Offline AI]: Hello! Ask me about JSON, YAML, or coding errors.";
+                if(lowerQ.includes("advice") || lowerQ.includes("exam") || lowerQ.includes("lesson 14")) return "🔵 [Offline AI]: Exam Advice (Lesson 14):\n1. Remove comments.\n2. Put 'name' in double quotes.\n3. Replace single quotes with double.\n4. Remove trailing commas.";
+                return getLoc('fallbackNoUnderstand');
             }
         }
 
-        function sendChatMessage() {
+        async function sendChatMessage() {
             const inputField = document.getElementById('chatInput');
             let text = inputField.value.trim(); if(!text) return;
+            
             addChatMsg(text, 'user'); inputField.value = "";
             writeLog("CHAT", "info", getLoc('logChatUser') + " " + text);
-            setTimeout(() => { 
-                addChatMsg(getAiResponse(text), 'ai'); 
-                writeLog("CHAT", "success", getLoc('logChatAi'));
-            }, 600); 
+            
+            const hasKey = memoryGet('aiApiKey', ''); const isOnline = document.getElementById('aiOnlineToggle').checked;
+            if (isOnline && hasKey && navigator.onLine && !text.toLowerCase().startsWith('запомни') && !text.toLowerCase().startsWith('learn')) {
+                inputField.placeholder = "🟢 Думаю...";
+            }
+
+            const response = await getAiResponse(text);
+            
+            inputField.placeholder = "..."; addChatMsg(response, 'ai'); writeLog("CHAT", "success", getLoc('logChatAi'));
         }
     </script>
 </body>
